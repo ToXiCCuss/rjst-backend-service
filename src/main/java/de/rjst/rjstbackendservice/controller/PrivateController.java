@@ -34,5 +34,4 @@ public class PrivateController {
     public  ResponseEntity<String> getTest2() {
         return ResponseEntity.ok(testSupplier.get());
     }
-
 }
