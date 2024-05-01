@@ -18,7 +18,7 @@ public class PrivateController {
     private final Supplier<String> testSupplier;
 
     @GetMapping
-    public final ResponseEntity<String> getTest3() {
+    public ResponseEntity<String> getTest3() {
         return ResponseEntity.ok("Hello Any Authenticated! This is private endpoint");
     }
 
