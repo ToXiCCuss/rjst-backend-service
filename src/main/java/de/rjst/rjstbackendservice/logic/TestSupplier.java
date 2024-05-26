@@ -9,6 +9,6 @@ public class TestSupplier implements Supplier<String> {
 
     @Override
     public String get() {
-        return "test";
+        return "123";
     }
 }

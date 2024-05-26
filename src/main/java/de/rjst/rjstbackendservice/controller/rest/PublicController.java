@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.controller;
+package de.rjst.rjstbackendservice.controller.rest;
 
 
 import lombok.RequiredArgsConstructor;
