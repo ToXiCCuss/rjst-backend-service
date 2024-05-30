@@ -128,6 +128,8 @@ data:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
         username: postgres
         password: PMZk1m2RgQ0foHsTh3yEsbBmR4vhl8
+        hikari:
+          minimum-idle: 1
       jpa:
         hibernate:
           ddl-auto: none
