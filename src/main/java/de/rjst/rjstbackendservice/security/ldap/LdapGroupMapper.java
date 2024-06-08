@@ -1,7 +1,6 @@
 package de.rjst.rjstbackendservice.security.ldap;
 
 import de.rjst.rjstbackendservice.security.ldap.unit.LdapGroup;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.List;
 public class LdapGroupMapper implements AttributesMapper<LdapGroup> {
 
     @Override
-    public final LdapGroup mapFromAttributes(@NotNull final Attributes attributes) throws NamingException {
+    public final LdapGroup mapFromAttributes(final Attributes attributes) throws NamingException {
         final LdapGroup group = new LdapGroup();
         group.setGroupName((String) attributes.get("cn").get());
         final Attribute memberUidAttribute = attributes.get("memberUid");

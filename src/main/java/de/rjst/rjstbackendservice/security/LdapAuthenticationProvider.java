@@ -1,7 +1,7 @@
 package de.rjst.rjstbackendservice.security;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,8 +23,9 @@ public class LdapAuthenticationProvider implements AuthenticationProvider {
 
     private final BiFunction<String, String, Boolean> authenticationFunction;
 
+    @NonNull
     @Override
-    public final @NotNull Authentication authenticate(@NotNull final Authentication authentication) throws AuthenticationException {
+    public final Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String username = authentication.getName();
         final Object credentials = authentication.getCredentials();
         final String password = credentials.toString();
