@@ -1,13 +1,15 @@
 package de.rjst.rjstbackendservice.controller.rest;
 
+import de.rjst.rjstbackendservice.database.PlayerEntity;
+import de.rjst.rjstbackendservice.database.PlayerRepository;
+import de.rjst.rjstbackendservice.logic.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 @RequiredArgsConstructor
@@ -15,23 +17,37 @@ import java.util.function.Supplier;
 @RequestMapping("private")
 public class PrivateController {
 
-    private final Supplier<String> testSupplier;
+    private final PlayerService playerService;
 
-    @GetMapping
-    public ResponseEntity<String> getTest3() {
-        return ResponseEntity.ok("Hello Any Authenticated! This is private endpoint");
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("players")
+    public ResponseEntity<List<PlayerEntity>> getPlayers() {
+        return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("user")
-    public ResponseEntity<String> getTest() {
-        return new ResponseEntity<>(testSupplier.get(), HttpStatus.OK);
+    @GetMapping("players/{id}")
+    public ResponseEntity<PlayerEntity> getPlayer(@PathVariable final Long id) {
+        return new ResponseEntity<>(playerService.getPlayerById(id), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("players")
+    public ResponseEntity<PlayerEntity> postPlayer(@RequestBody final PlayerEntity player) {
+        return new ResponseEntity<>(playerService.postPlayer(player), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PutMapping("players")
+    public ResponseEntity<PlayerEntity> putPlayer(@RequestBody final PlayerEntity player) {
+        return new ResponseEntity<>(playerService.updatePlayer(player), HttpStatus.OK);
     }
 
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("admin")
-    public  ResponseEntity<String> getTest2() {
-        return ResponseEntity.ok(testSupplier.get());
+    @DeleteMapping("players/{id}")
+    public ResponseEntity<Boolean> deletePlayer(@PathVariable final Long id) {
+        return ResponseEntity.ok(playerService.deletePlayer(id));
     }
 }

@@ -15,8 +15,8 @@ public class PublicController {
 
 
     @GetMapping
-    public ResponseEntity<String> getTest() {
-        return new ResponseEntity<>("Hallo Nico", HttpStatus.OK);
+    public ResponseEntity<String> getPublic() {
+        return new ResponseEntity<>("Hallo", HttpStatus.OK);
     }
 
 }
