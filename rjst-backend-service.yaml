@@ -154,6 +154,8 @@ data:
     springdoc:
       swagger-ui:
         use-root-path: true
+      api-docs:
+        version: openapi_3_1
     management:
       endpoints:
         web:
