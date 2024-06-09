@@ -139,7 +139,6 @@ data:
           client:
             url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
             instance:
-              prefer-ip: false
               service-base-url: https://rjst-backend-service.rjst.de
               management-base-url: http://rjst-backend-service.dev.svc.cluster.local:8080
               name: rjst-backend-service

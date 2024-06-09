@@ -1,7 +1,6 @@
 package de.rjst.rjstbackendservice.controller.soap;
 
 import de.rjst.rjstbackendservice.database.PlayerEntity;
-import de.rjst.rjstbackendservice.logic.PlayerService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
