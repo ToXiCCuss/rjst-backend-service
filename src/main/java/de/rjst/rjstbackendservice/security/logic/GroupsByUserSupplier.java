@@ -1,7 +1,7 @@
 package de.rjst.rjstbackendservice.security.logic;
 
 import de.rjst.rjstbackendservice.security.ldap.LdapGroupRepository;
-import de.rjst.rjstbackendservice.security.ldap.unit.LdapGroup;
+import de.rjst.rjstbackendservice.security.ldap.LdapGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -13,13 +13,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Service
 public class LdapAuthenticationProvider implements AuthenticationProvider {
 
-    @Qualifier("ldapDetailsService")
-    private final UserDetailsService userDetailsService;
+    private final Function<String, UserDetails> userSupplier;
 
     private final BiFunction<String, String, Boolean> authenticationFunction;
 
@@ -34,7 +34,7 @@ public class LdapAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid Credentials");
         }
 
-        final UserDetails user = userDetailsService.loadUserByUsername(username);
+        final UserDetails user = userSupplier.apply(username);
         return new UsernamePasswordAuthenticationToken(user, credentials, user.getAuthorities());
     }
 

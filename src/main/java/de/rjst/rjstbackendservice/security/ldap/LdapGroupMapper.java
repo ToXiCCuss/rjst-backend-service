@@ -1,6 +1,5 @@
 package de.rjst.rjstbackendservice.security.ldap;
 
-import de.rjst.rjstbackendservice.security.ldap.unit.LdapGroup;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.stereotype.Service;
 

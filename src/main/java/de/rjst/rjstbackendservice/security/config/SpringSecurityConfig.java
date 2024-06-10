@@ -25,7 +25,6 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity, @Qualifier("ldapAuthenticationProvider") final AuthenticationProvider authenticationProvider) throws Exception {
         httpSecurity
-                .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)

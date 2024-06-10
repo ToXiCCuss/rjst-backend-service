@@ -1,9 +1,8 @@
-package de.rjst.rjstbackendservice.security.ldap.unit;
+package de.rjst.rjstbackendservice.security.ldap;
 
 
 import lombok.*;
 import org.springframework.ldap.odm.annotations.Attribute;
-import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 
 import javax.naming.Name;
