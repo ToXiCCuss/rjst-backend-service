@@ -18,7 +18,7 @@ public class SoapConfig {
     @Bean
     public EndpointImpl endpoint() {
         EndpointImpl result = new EndpointImpl(bus, webService);
-        result.publish("/test");
+        result.publish("/soap");
         return result;
     }
 
