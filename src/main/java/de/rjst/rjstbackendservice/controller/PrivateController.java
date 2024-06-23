@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.controller.rest;
+package de.rjst.rjstbackendservice.controller;
 
 import de.rjst.rjstbackendservice.database.PlayerEntity;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
