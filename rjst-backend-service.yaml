@@ -134,9 +134,6 @@ data:
         hibernate:
           ddl-auto: none
         open-in-view: false
-      threads:
-        virtual:
-          enabled: true
       boot:
         admin:
           client:
