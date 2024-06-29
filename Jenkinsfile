@@ -1,2 +1,2 @@
 @Library('cicd-config') _
-spring('3.8.8-eclipse-temurin-21')
+springBuildPacks('3.8.8-eclipse-temurin-21')

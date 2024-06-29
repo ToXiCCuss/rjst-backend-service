@@ -28,6 +28,8 @@ public class SecurityProperties {
             "/v3/api-docs/**",
             "/public/**",
             "/actuator/**",
+            "/error",
+            "/test",
             "/"
     };
 
