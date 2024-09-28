@@ -89,7 +89,7 @@ spec:
         credentialName: <NAME>-cert
         mode: SIMPLE
       hosts:
-        - "<NAME>.vpn.rjst.de"
+        - "<NAME>.rjst.de"
 ---
 
 apiVersion: networking.istio.io/v1
@@ -99,7 +99,7 @@ metadata:
   namespace: dev
 spec:
   hosts:
-    - "<NAME>.vpn.rjst.de"
+    - "<NAME>.rjst.de"
   gateways:
     - <NAME>
   http:
@@ -109,7 +109,7 @@ spec:
             prefix: /
       redirect:
         uri: /
-        authority: "<NAME>.vpn.rjst.de"
+        authority: "<NAME>.rjst.de"
         scheme: https
     - match:
         - uri:
@@ -130,11 +130,11 @@ metadata:
 spec:
   secretName: <NAME>-cert
   issuerRef:
-    name: self-issuer
+    name: letsencrypt
     kind: ClusterIssuer
-  commonName: "<NAME>.vpn.rjst.de"
+  commonName: "<NAME>.rjst.de"
   dnsNames:
-    - "<NAME>.vpn.rjst.de"
+    - "<NAME>.rjst.de"
 
 ---
 
