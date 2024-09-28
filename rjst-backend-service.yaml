@@ -24,9 +24,6 @@ spec:
             - name: http
               containerPort: 8080
           resources:
-            requests:
-              memory: "256Mi"
-              cpu: "0.1"
             limits:
               memory: "1Gi"
               cpu: "4"
@@ -56,7 +53,7 @@ spec:
             name: <NAME>-cfg
         - name: cache-volume
           emptyDir:
-            sizeLimit: 500Mi
+            sizeLimit: 512Mi
 ---
 
 apiVersion: v1
@@ -73,46 +70,71 @@ spec:
       targetPort: 8080
   selector:
     app: <NAME>
+---
 
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: <NAME>
+  namespace: dev
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        credentialName: <NAME>-cert
+        mode: SIMPLE
+      hosts:
+        - "<NAME>.vpn.rjst.de"
+---
+
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: <NAME>
+  namespace: <NAME>
+spec:
+  hosts:
+    - "<NAME>.vpn.rjst.de"
+  gateways:
+    - <NAME>
+  http:
+    - match:
+        - port: 80
+          uri:
+            prefix: /
+      redirect:
+        uri: /
+        authority: "<NAME>.vpn.rjst.de"
+        scheme: https
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: <NAME>
+            port:
+              number: 8080
 
 ---
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: <NAME>-cert
-  namespace: dev
+  namespace: istio-system
 spec:
   secretName: <NAME>-cert
   issuerRef:
-    name: letsencrypt
+    name: self-issuer
     kind: ClusterIssuer
+  commonName: "<NAME>.vpn.rjst.de"
   dnsNames:
-    - <NAME>.rjst.de
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: <NAME>
-  namespace: dev
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-red-https@kubernetescrd
-spec:
-  rules:
-    - host: <NAME>.rjst.de
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: <NAME>
-                port:
-                  number: 8080
-  tls:
-    - hosts:
-        - <NAME>.rjst.de
-      secretName: <NAME>-cert
+    - "<NAME>.vpn.rjst.de"
 
 ---
 
