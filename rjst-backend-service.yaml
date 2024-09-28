@@ -89,7 +89,7 @@ spec:
         credentialName: <NAME>-cert
         mode: SIMPLE
       hosts:
-        - "<NAME>.rjst.de"
+        - "<NAME>.vpn.rjst.de"
 ---
 
 apiVersion: networking.istio.io/v1
@@ -99,7 +99,7 @@ metadata:
   namespace: dev
 spec:
   hosts:
-    - "<NAME>.rjst.de"
+    - "<NAME>.vpn.rjst.de"
   gateways:
     - <NAME>
   http:
@@ -109,7 +109,7 @@ spec:
             prefix: /
       redirect:
         uri: /
-        authority: "<NAME>.rjst.de"
+        authority: "<NAME>.vpn.rjst.de"
         scheme: https
     - match:
         - uri:
@@ -130,11 +130,11 @@ metadata:
 spec:
   secretName: <NAME>-cert
   issuerRef:
-    name: letsencrypt
+    name: self-issuer
     kind: ClusterIssuer
-  commonName: "<NAME>.rjst.de"
+  commonName: "<NAME>.vpn.rjst.de"
   dnsNames:
-    - "<NAME>.rjst.de"
+    - "<NAME>.vpn.rjst.de"
 
 ---
 
@@ -147,7 +147,7 @@ data:
   application.yaml: |
     spring:
       datasource:
-        url: jdbc:postgresql://vpn.rjst.de:5432/backend
+        url: jdbc:postgresql://vpn.vpn.rjst.de:5432/backend
         username: postgres
         password: 70pNJTkISyghR9puwGKLjt2XGl38tv
         hikari:
@@ -161,12 +161,12 @@ data:
           client:
             url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
             instance:
-              service-base-url: https://rjst-backend-service.rjst.de
+              service-base-url: https://rjst-backend-service.vpn.rjst.de
               management-base-url: http://rjst-backend-service.dev.svc.cluster.local:8080
               name: rjst-backend-service
       ldap:
         base: dc=rjst,dc=de
-        urls: ldap://vpn.rjst.de:389
+        urls: ldap://vpn.vpn.rjst.de:389
         username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
         password: "123"
     security:
