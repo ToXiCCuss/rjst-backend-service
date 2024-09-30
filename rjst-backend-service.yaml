@@ -151,7 +151,7 @@ data:
   application.yaml: |
     spring:
       config:
-        import: file:/vault/secrets/properties
+        import: file:./vault/secrets/properties
       datasource:
         url: jdbc:postgresql://vpn.vpn.rjst.de:5432/backend
         username: postgres
