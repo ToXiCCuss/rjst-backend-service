@@ -16,11 +16,11 @@ spec:
         vault.hashicorp.com/role: 'spring'
         vault.hashicorp.com/agent-inject-secret-properties: 'dev/data/<NAME>'
         vault.hashicorp.com/agent-inject-template-properties: |
-          {{ with secret "dev/data/<NAME>" }}
-            {{ range $k, $v := .Data }}
-              {{ $k }}: {{ $v }}
-            {{ end }}
-          {{ end }}
+          {{- with secret "dev/data/<NAME>" -}}
+            {{- range $k, $v := .Data.data -}}
+              {{ $k }}={{ $v }}
+            {{- end -}}
+          {{- end -}}
       labels:
         app: <NAME>
     spec:
@@ -150,10 +150,11 @@ metadata:
 data:
   application.yaml: |
     spring:
+      config:
+        import: optional:file:/vault/secrets/properties
       datasource:
         url: jdbc:postgresql://vpn.vpn.rjst.de:5432/backend
         username: postgres
-        password: 70pNJTkISyghR9puwGKLjt2XGl38tv
         hikari:
           minimum-idle: 1
       jpa:
