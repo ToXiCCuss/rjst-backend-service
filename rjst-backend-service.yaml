@@ -15,6 +15,7 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: 'spring'
         vault.hashicorp.com/agent-inject-secret-properties: 'dev/data/<NAME>'
+        vault.hashicorp.com/agent-inject-file-properties: "/vault/secrets/application.properties"
         vault.hashicorp.com/agent-inject-template-properties: |
           {{- with secret "dev/data/<NAME>" -}}
             {{- range $k, $v := .Data.data -}}
@@ -151,7 +152,7 @@ data:
   application.yaml: |
     spring:
       config:
-        import: file:./vault/secrets/properties
+        import: file:/vault/secrets/application.properties
       datasource:
         url: jdbc:postgresql://vpn.vpn.rjst.de:5432/backend
         username: postgres
