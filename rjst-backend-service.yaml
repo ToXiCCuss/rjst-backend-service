@@ -11,6 +11,7 @@ spec:
   template:
     metadata:
       annotations:
+        vault.hashicorp.com/agent-init-first: "true"
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/role: 'spring'
         vault.hashicorp.com/agent-inject-secret-properties: 'dev/data/<NAME>'
