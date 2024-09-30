@@ -10,20 +10,9 @@ spec:
       app: <NAME>
   template:
     metadata:
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: 'spring'
-        vault.hashicorp.com/agent-inject-secret-properties: 'dev/data/<NAME>'
-        vault.hashicorp.com/agent-inject-template-properties: |
-          {{ with secret "dev/data/<NAME>" }}
-            {{ range $k, $v := .Data }}
-              {{ $k }}: {{ $v }}
-            {{ end }}
-          {{ end }}
       labels:
         app: <NAME>
     spec:
-      serviceAccountName: spring
       containers:
         - name: <NAME>
           image: localhost/dev/<NAME>:<TAG>
@@ -114,6 +103,14 @@ spec:
   gateways:
     - <NAME>
   http:
+    - match:
+        - port: 80
+          uri:
+            prefix: /
+      redirect:
+        uri: /
+        authority: "<NAME>.vpn.rjst.de"
+        scheme: https
     - match:
         - uri:
             prefix: /
