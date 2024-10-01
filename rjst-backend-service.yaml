@@ -37,6 +37,9 @@ spec:
             - name: http
               containerPort: 8080
           resources:
+            requests:
+              memory: "0Mi"
+              cpu: "0"
             limits:
               memory: "1Gi"
               cpu: "4"
