@@ -157,7 +157,7 @@ data:
       config:
         import: file:/vault/secrets/secrets.properties
       datasource:
-        url: jdbc:postgresql://vpn.vpn.rjst.de:5432/backend
+        url: jdbc:postgresql://vpn.rjst.de:5432/backend
         username: postgres
         hikari:
           minimum-idle: 1
@@ -170,9 +170,9 @@ data:
           client:
             url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
             instance:
-              service-base-url: https://rjst-backend-service.vpn.rjst.de
-              management-base-url: http://rjst-backend-service.dev.svc.cluster.local:8080
-              name: rjst-backend-service
+              service-base-url: https://<NAME>.vpn.rjst.de
+              management-base-url: http://<NAME>.dev.svc.cluster.local:8080
+              name: <NAME>
       ldap:
         base: dc=rjst,dc=de
         urls: ldap://vpn.vpn.rjst.de:389
