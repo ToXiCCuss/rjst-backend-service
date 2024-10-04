@@ -175,7 +175,7 @@ data:
               name: <NAME>
       ldap:
         base: dc=rjst,dc=de
-        urls: ldap://vpn.vpn.rjst.de:389
+        urls: ldap://vpn.rjst.de:389
         username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
         password: "123"
     security:
