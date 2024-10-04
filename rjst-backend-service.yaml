@@ -83,7 +83,7 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 8080
+      port: 80
       targetPort: 8080
   selector:
     app: <NAME>
@@ -127,7 +127,7 @@ spec:
         - destination:
             host: <NAME>
             port:
-              number: 8080
+              number: 80
 
 ---
 
@@ -169,10 +169,10 @@ data:
       boot:
         admin:
           client:
-            url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
+            url: http://rjst-spring-boot-admin.dev.svc.cluster.local
             instance:
               service-base-url: https://<NAME>.vpn.rjst.de
-              management-base-url: http://<NAME>.dev.svc.cluster.local:8080
+              management-base-url: http://<NAME>.dev.svc.cluster.local
               name: <NAME>
       ldap:
         base: dc=rjst,dc=de
