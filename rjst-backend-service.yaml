@@ -20,7 +20,8 @@ spec:
           {{- with secret "dev/data/<NAME>" -}}
             {{- range $k, $v := .Data.data -}}
               {{ $k }}={{ $v }}
-            {{ "\n" -}}
+              {{ "\n" }}
+            {{- end -}}
           {{- end -}}
       labels:
         app: <NAME>
