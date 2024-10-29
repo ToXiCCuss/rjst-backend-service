@@ -26,11 +26,17 @@ public class SecurityProperties {
     private String[] permitAll = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/public/**",
-            "/actuator/**",
+            "/actuator/health/**",
             "/error",
             "/test",
             "/"
     };
+
+    @Delimiter(",")
+    private String[] management = {
+            "/actuator/**",
+    };
+
+
 
 }
