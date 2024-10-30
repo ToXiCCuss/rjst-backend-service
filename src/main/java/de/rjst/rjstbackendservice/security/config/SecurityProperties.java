@@ -34,7 +34,7 @@ public class SecurityProperties {
 
     @Delimiter(",")
     private String[] management = {
-            "/actuator/**",
+            "/actuator/**"
     };
 
 
