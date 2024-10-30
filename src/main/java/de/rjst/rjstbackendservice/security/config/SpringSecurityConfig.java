@@ -30,7 +30,6 @@ public class SpringSecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(securityProperties.getPermitAll()).permitAll()
-                        .requestMatchers("/actuator/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
