@@ -15,7 +15,16 @@ spring:
     urls: ldap://vpn.rjst.de:389
     username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
     password: "123"
-
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        instance:
+          service-base-url: https://rjst-backend-service.vpn.rjst.de
+          management-base-url: http://localhost:8084
+          name: rjst-backend-service
+        username: padmin
+        password: 123
 security:
   pseudo-user-path: "ou=pseudo,ou=users,dc=rjst,dc=de"
   default-user-path: "ou=team,ou=users,dc=rjst,dc=de"
@@ -30,6 +39,7 @@ springdoc:
 server:
   error:
     include-stacktrace: never
+  port: 8084
 
 management:
   endpoints:
