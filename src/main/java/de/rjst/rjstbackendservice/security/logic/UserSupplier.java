@@ -25,13 +25,10 @@ public class UserSupplier implements Function<String, UserDetails> {
     public final UserDetails apply(final String username) {
         final List<String> groups = groupsByUserSupplier.apply(username);
         if (groups.isEmpty()) {
-            log.error("Groups not found: {}", username);
             throw new UsernameNotFoundException("No groups found: " + username);
         }
 
         final UserDetails result = userDetailsMapper.apply(username, groups);
-
-        log.info("Login: {}", result);
         return result;
     }
 }
