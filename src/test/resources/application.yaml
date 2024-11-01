@@ -23,8 +23,7 @@ spring:
           service-base-url: https://rjst-backend-service.vpn.rjst.de
           management-base-url: http://localhost:8084
           name: rjst-backend-service
-        username: padmin
-        password: 123
+
 security:
   pseudo-user-path: "ou=pseudo,ou=users,dc=rjst,dc=de"
   default-user-path: "ou=team,ou=users,dc=rjst,dc=de"

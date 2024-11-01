@@ -22,15 +22,18 @@ public class SpringSecurityConfig {
 
     private final SecurityProperties securityProperties;
 
+    @Qualifier("ldapAuthenticationProvider")
+    private final AuthenticationProvider authenticationProvider;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity, @Qualifier("ldapAuthenticationProvider") final AuthenticationProvider authenticationProvider) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(securityProperties.getPermitAll()).permitAll()
-                        .requestMatchers("/actuator/**").hasAuthority("ADMIN")
+                        .requestMatchers("/actuator/**").hasAuthority("MONITORING")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
