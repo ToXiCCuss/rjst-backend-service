@@ -3,6 +3,7 @@ package de.rjst.rjstbackendservice.controller;
 import de.rjst.rjstbackendservice.database.PlayerEntity;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import de.rjst.rjstbackendservice.logic.PlayerService;
+import de.rjst.rjstbackendservice.logic.TestDataGeneratorFunction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.function.Supplier;
 public class PrivateController {
 
     private final PlayerService playerService;
+    private final TestDataGeneratorFunction testDataGeneratorFunction;
 
 
     @PreAuthorize("hasAuthority('USER')")
@@ -49,5 +51,12 @@ public class PrivateController {
     @DeleteMapping("players/{id}")
     public ResponseEntity<Boolean> deletePlayer(@PathVariable final Long id) {
         return ResponseEntity.ok(playerService.deletePlayer(id));
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("players/testdata")
+    public ResponseEntity<List<PlayerEntity>> generateTestData(@RequestParam final Long amount) {
+        return ResponseEntity.ok(testDataGeneratorFunction.apply(amount));
     }
 }

@@ -23,4 +23,9 @@ public class PlayerEntity {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private ProcessState processState;
+
+    @Column(name = "count")
+    private Integer count = 0;
 }
