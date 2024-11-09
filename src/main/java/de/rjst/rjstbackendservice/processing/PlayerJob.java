@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionOperations;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
-    private final Consumer<PlayerEntity> playerConsumer;
+    private final Function<PlayerEntity, CompletableFuture<PlayerEntity>> playerFunction;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.MINUTES)
     public void process() {
@@ -32,7 +34,11 @@ public class PlayerJob {
                 if (players.isEmpty()) {
                     return false;
                 }
-                players.forEach(playerConsumer);
+                final List<CompletableFuture<PlayerEntity>> futures = players.parallelStream()
+                        .map(playerFunction)
+                        .toList();
+
+                CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
                 return true;
             }));
         }

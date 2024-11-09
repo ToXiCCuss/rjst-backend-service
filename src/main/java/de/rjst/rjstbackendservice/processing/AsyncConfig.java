@@ -6,20 +6,17 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @Configuration
 @EnableAsync
 public class AsyncConfig {
 
+    private static final int THREADS = 50;
+
     @Bean(name = "jobTaskExecutor")
     public Executor taskExecutor() {
-        final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("PlayerJob-");
-        executor.initialize();
-        return executor;
+        return Executors.newFixedThreadPool(THREADS);
     }
 
 }

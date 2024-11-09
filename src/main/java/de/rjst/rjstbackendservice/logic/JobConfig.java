@@ -25,7 +25,6 @@ public class JobConfig {
     public TransactionOperations jobTransactionOperations(final PlatformTransactionManager transactionManager) {
         final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         transactionTemplate.setPropagationBehavior(PROPAGATION_REQUIRES_NEW);
-        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
         return transactionTemplate;
     }
 
