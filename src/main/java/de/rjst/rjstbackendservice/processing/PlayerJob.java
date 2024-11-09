@@ -24,6 +24,7 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
+    private final ProcessPlayerFunction processPlayerFunction;
 
     @Scheduled(fixedDelay = 1_000L)
     public void process() {
@@ -35,17 +36,7 @@ public class PlayerJob {
                 if (players.isEmpty()) {
                     return false;
                 }
-                final ExecutorService executor = Executors.newFixedThreadPool(10);
-
-                final List<CompletableFuture<Void>> hostname = players.stream().map(entity -> CompletableFuture.runAsync(() -> {
-                    entity.setCount(entity.getCount() + 1);
-                    entity.setProcessState(ProcessState.FINISHED);
-                    entity.setPod(System.getenv("HOSTNAME"));
-                    entity.setUpdated(LocalDateTime.now());
-                    playerRepository.save(entity);
-                }, executor)).toList();
-                hostname.forEach(CompletableFuture::join);
-                executor.shutdown();
+                players.forEach(processPlayerFunction::apply);
                 return true;
             }));
         }
