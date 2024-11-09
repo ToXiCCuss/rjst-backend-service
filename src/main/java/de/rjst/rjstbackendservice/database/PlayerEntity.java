@@ -28,4 +28,6 @@ public class PlayerEntity {
 
     @Column(name = "count")
     private Integer count = 0;
+
+    private String pod;
 }

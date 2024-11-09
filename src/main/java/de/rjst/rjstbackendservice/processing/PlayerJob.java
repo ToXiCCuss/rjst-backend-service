@@ -30,9 +30,9 @@ public class PlayerJob {
                     return false;
                 }
                 players.forEach(entity -> {
-                    entity.setProcessState(ProcessState.RUNNING);
                     entity.setCount(entity.getCount() + 1);
                     entity.setProcessState(ProcessState.FINISHED);
+                    entity.setPod(System.getenv("HOSTNAME"));
                     playerRepository.save(entity);
                 });
                 return true;
