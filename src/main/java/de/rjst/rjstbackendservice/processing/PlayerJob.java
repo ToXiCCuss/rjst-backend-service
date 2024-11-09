@@ -11,6 +11,11 @@ import org.springframework.transaction.support.TransactionOperations;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,13 +35,17 @@ public class PlayerJob {
                 if (players.isEmpty()) {
                     return false;
                 }
-                players.forEach(entity -> {
+                final ExecutorService executor = Executors.newFixedThreadPool(10);
+
+                final List<CompletableFuture<Void>> hostname = players.stream().map(entity -> CompletableFuture.runAsync(() -> {
                     entity.setCount(entity.getCount() + 1);
                     entity.setProcessState(ProcessState.FINISHED);
                     entity.setPod(System.getenv("HOSTNAME"));
                     entity.setUpdated(LocalDateTime.now());
                     playerRepository.save(entity);
-                });
+                }, executor)).toList();
+                hostname.forEach(CompletableFuture::join);
+                executor.shutdown();
                 return true;
             }));
         }

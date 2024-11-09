@@ -35,6 +35,8 @@ public class PlayerEntity {
 
     private String pod;
 
+    private String thread;
+
     private LocalDateTime created;
 
     private LocalDateTime updated;
