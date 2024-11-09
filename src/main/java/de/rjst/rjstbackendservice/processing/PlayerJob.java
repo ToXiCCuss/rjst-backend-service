@@ -11,8 +11,6 @@ import org.springframework.transaction.support.TransactionOperations;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -22,7 +20,6 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
-    private final Executor jobTaskExecutor;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.MINUTES)
     public void process() {
@@ -47,7 +44,6 @@ public class PlayerJob {
             }));
         }
     }
-
 
 
 }
