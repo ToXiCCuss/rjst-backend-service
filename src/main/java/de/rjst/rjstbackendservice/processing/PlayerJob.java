@@ -9,15 +9,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionOperations;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,7 +22,7 @@ public class PlayerJob {
     private final PlayerRepository playerRepository;
     private final Consumer<PlayerEntity> playerConsumer;
 
-    @Scheduled(fixedDelay = 1_000L)
+    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.MINUTES)
     public void process() {
         log.info("Processing player data");
         boolean pending = true;
