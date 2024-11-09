@@ -8,24 +8,21 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 @Service
-public class ProcessPlayerFunction implements Function<PlayerEntity, CompletableFuture<Void>> {
+public class PlayerConsumer implements Consumer<PlayerEntity> {
 
     private final PlayerRepository playerRepository;
 
     @Async("jobTaskExecutor")
-    public CompletableFuture<Void> apply(final PlayerEntity entity) {
+    public void accept(PlayerEntity entity) {
         entity.setCount(entity.getCount() + 1);
         entity.setProcessState(ProcessState.FINISHED);
         entity.setPod(System.getenv("HOSTNAME"));
         entity.setThread(Thread.currentThread().getName());
         entity.setUpdated(LocalDateTime.now());
         playerRepository.save(entity);
-        return CompletableFuture.completedFuture(null);
     }
-
 }

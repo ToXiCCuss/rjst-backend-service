@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
-    private final Function<PlayerEntity, CompletableFuture<Void>> processPlayerFunction;
+    private final Consumer<PlayerEntity> playerConsumer;
 
     @Scheduled(fixedDelay = 1_000L)
     public void process() {
@@ -37,7 +38,7 @@ public class PlayerJob {
                 if (players.isEmpty()) {
                     return false;
                 }
-                players.forEach(processPlayerFunction::apply);
+                players.forEach(playerConsumer);
                 return true;
             }));
         }
