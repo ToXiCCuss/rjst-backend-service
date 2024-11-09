@@ -12,7 +12,18 @@ import java.util.concurrent.Executor;
 public class AsyncConfig {
 
     @Bean(name = "jobTaskExecutor")
-    public Executor taskExecutor() {
+    public Executor jobTaskExecutor() {
+        final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("PlayerJob-");
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean(name = "createTaskExecutor")
+    public Executor createTaskExecutor() {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(10);
