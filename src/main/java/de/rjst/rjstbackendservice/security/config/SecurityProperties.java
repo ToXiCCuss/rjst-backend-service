@@ -14,12 +14,6 @@ import org.springframework.validation.annotation.Validated;
 public class SecurityProperties {
 
     @NotBlank
-    private String pseudoUserPath;
-
-    @NotBlank
-    private String defaultUserPath;
-
-    @NotBlank
     private String toolUser;
 
     @Delimiter(",")

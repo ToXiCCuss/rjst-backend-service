@@ -1,6 +1,5 @@
 package de.rjst.rjstbackendservice.security.logic.auth;
 
-import de.rjst.rjstbackendservice.security.config.SecurityProperties;
 import de.rjst.rjstbackendservice.security.util.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +17,11 @@ import java.util.function.BiFunction;
 public class DefaultAuthenticationFunction implements BiFunction<String, String, Boolean> {
 
     private final LdapTemplate ldapTemplate;
-    private final SecurityProperties securityProperties;
+    private static final String BASE_PATH = "ou=team,ou=users,dc=rjst,dc=de";
 
     @Override
     public final Boolean apply(final String username, final String password) {
-        final String basePath = securityProperties.getDefaultUserPath();
-        final String user = Utils.getLdapPath(username, basePath);
+        final String user = Utils.getLdapPath(username, BASE_PATH);
         boolean result = true;
         try {
             final ContextSource contextSource = ldapTemplate.getContextSource();

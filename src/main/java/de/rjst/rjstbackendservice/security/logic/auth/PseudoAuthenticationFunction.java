@@ -17,12 +17,11 @@ import java.util.function.BiFunction;
 public class PseudoAuthenticationFunction implements BiFunction<String, String, Boolean> {
 
     private final LdapTemplate ldapTemplate;
-    private final SecurityProperties securityProperties;
+    private static final String BASE_PATH = "ou=pseudo,ou=users,dc=rjst,dc=de";
 
     @Override
     public final Boolean apply(final String username, final String password) {
-        final String basePath = securityProperties.getPseudoUserPath();
-        final String user = Utils.getLdapPath(username, basePath);
+        final String user = Utils.getLdapPath(username, BASE_PATH);
         boolean result = true;
         try {
             final ContextSource contextSource = ldapTemplate.getContextSource();
