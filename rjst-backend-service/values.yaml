@@ -3,4 +3,4 @@ spring-boot:
   appVersion: "0.0.0"
   istio:
     url: "rjst-backend-service.rjst.de"
-  replicaCount: 4
+  replicaCount: 2
