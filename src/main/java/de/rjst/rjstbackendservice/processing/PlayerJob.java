@@ -9,11 +9,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionOperations;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
-    private final Function<PlayerEntity, CompletableFuture<PlayerEntity>> playerFunction;
+    private final Executor jobTaskExecutor;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.MINUTES)
     public void process() {
@@ -34,14 +34,20 @@ public class PlayerJob {
                 if (players.isEmpty()) {
                     return false;
                 }
-                final List<CompletableFuture<PlayerEntity>> futures = players.parallelStream()
-                        .map(playerFunction)
-                        .toList();
-
-                CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
+                players.forEach(player -> {
+                    log.info("Processing player {}", player.getId());
+                    player.setCount(player.getCount() + 1);
+                    player.setProcessState(ProcessState.FINISHED);
+                    player.setPod(System.getenv("HOSTNAME"));
+                    player.setThread(Thread.currentThread().getName());
+                    player.setUpdated(LocalDateTime.now());
+                    playerRepository.save(player);
+                });
                 return true;
             }));
         }
     }
+
+
 
 }
