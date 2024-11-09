@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionOperations;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -33,6 +34,7 @@ public class PlayerJob {
                     entity.setCount(entity.getCount() + 1);
                     entity.setProcessState(ProcessState.FINISHED);
                     entity.setPod(System.getenv("HOSTNAME"));
+                    entity.setUpdated(LocalDateTime.now());
                     playerRepository.save(entity);
                 });
                 return true;

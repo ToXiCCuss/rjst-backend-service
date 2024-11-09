@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionOperations;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -42,6 +43,8 @@ public class TestDataGeneratorFunction implements Function<Long, List<PlayerEnti
         result.setName(address.firstName() + " " + address.lastName());
         final Internet internet = faker.internet();
         result.setPassword(internet.password());
+        result.setCreated(LocalDateTime.now());
+        result.setUpdated(LocalDateTime.now());
         return result;
     }
 }

@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.AbstractAuditable;
+import org.springframework.data.jpa.domain.AbstractAuditable_;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +34,9 @@ public class PlayerEntity {
     private Integer count = 0;
 
     private String pod;
+
+    private LocalDateTime created;
+
+    private LocalDateTime updated;
+
 }
