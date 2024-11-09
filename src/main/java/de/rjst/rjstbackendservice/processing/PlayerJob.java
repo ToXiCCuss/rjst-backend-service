@@ -21,9 +21,8 @@ public class PlayerJob {
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
 
-    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.SECONDS)
     public void process() {
-        log.info("Processing player data");
         boolean pending = true;
         while (pending) {
             pending = Boolean.TRUE.equals(jobTransactionOperations.execute(txStatus -> {
