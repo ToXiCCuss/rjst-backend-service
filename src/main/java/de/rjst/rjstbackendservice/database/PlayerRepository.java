@@ -13,7 +13,7 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
 
     String SKIP_LOCKED = "-2";
 
-//    @QueryHints(@QueryHint(name = AvailableSettings.JAKARTA_LOCK_TIMEOUT, value = SKIP_LOCKED))
-//    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @QueryHints(@QueryHint(name = AvailableSettings.JAKARTA_LOCK_TIMEOUT, value = SKIP_LOCKED))
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<PlayerEntity> findTop50ByProcessStateOrderByIdAsc(ProcessState processState);
 }
