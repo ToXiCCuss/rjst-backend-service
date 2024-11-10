@@ -1,8 +1,6 @@
 package de.rjst.rjstbackendservice.processing;
 
-import de.rjst.rjstbackendservice.database.PlayerEntity;
-import de.rjst.rjstbackendservice.database.PlayerRepository;
-import de.rjst.rjstbackendservice.database.ProcessState;
+import de.rjst.rjstbackendservice.database.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +18,7 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
+    private final AuditRepository auditRepository;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.SECONDS)
     public void process() {
@@ -32,16 +31,23 @@ public class PlayerJob {
                 }
                 players.forEach(player -> {
                     log.info("Processing player {}", player.getId());
-                    player.setCount(player.getCount() + 1);
                     player.setProcessState(ProcessState.FINISHED);
                     player.setPod(System.getenv("HOSTNAME"));
                     player.setThread(Thread.currentThread().getName());
                     player.setUpdated(LocalDateTime.now());
                     playerRepository.save(player);
+                    audit(player);
                 });
                 return true;
             }));
         }
+    }
+
+    private void audit(final PlayerEntity player) {
+        final AuditEntity audit = new AuditEntity();
+        audit.setName(player.getName());
+        audit.setCreated(LocalDateTime.now());
+        auditRepository.save(audit);
     }
 
 

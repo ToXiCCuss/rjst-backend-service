@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.AbstractAuditable;
-import org.springframework.data.jpa.domain.AbstractAuditable_;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "player")
-public class PlayerEntity {
+@Table(name = "audit_player")
+public class AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +23,5 @@ public class PlayerEntity {
 
     private String name;
 
-    private String password;
-
-    @Enumerated(EnumType.STRING)
-    private ProcessState processState;
-
-    private String pod;
-
-    private String thread;
-
     private LocalDateTime created;
-
-    private LocalDateTime updated;
-
 }
