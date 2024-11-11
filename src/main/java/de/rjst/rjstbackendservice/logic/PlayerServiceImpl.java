@@ -1,6 +1,6 @@
 package de.rjst.rjstbackendservice.logic;
 
-import de.rjst.rjstbackendservice.database.PlayerEntity;
+import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
     @Override
-    public List<PlayerEntity> getPlayers() {
+    public List<Player> getPlayers() {
         return playerRepository.findAll();
     }
 
     @Override
-    public PlayerEntity getPlayerById(final Long id) {
-        Optional<PlayerEntity> result = playerRepository.findById(id);
+    public Player getPlayerById(final Long id) {
+        Optional<Player> result = playerRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } else {
@@ -33,15 +33,15 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public PlayerEntity postPlayer(final PlayerEntity player) {
+    public Player postPlayer(final Player player) {
         return playerRepository.save(player);
     }
 
     @Transactional
     @Override
-    public PlayerEntity updatePlayer(final PlayerEntity player) {
-        final Optional<PlayerEntity> dbPlayer = playerRepository.findById(player.getId());
-        final PlayerEntity result;
+    public Player updatePlayer(final Player player) {
+        final Optional<Player> dbPlayer = playerRepository.findById(player.getId());
+        final Player result;
         if (dbPlayer.isPresent()) {
             result = dbPlayer.get();
             result.setName(player.getName());

@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.QueryHints;
 
 import java.util.List;
 
-public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
+public interface PlayerRepository extends JpaRepository<Player, Long> {
 
     String SKIP_LOCKED = "-2";
 
     @QueryHints(@QueryHint(name = AvailableSettings.JAKARTA_LOCK_TIMEOUT, value = SKIP_LOCKED))
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    List<PlayerEntity> findTop50ByProcessStateOrderByIdAsc(ProcessState processState);
+    List<Player> findTop50ByProcessStateOrderByIdAsc(ProcessState processState);
 }

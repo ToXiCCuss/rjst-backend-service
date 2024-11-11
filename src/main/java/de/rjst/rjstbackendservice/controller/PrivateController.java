@@ -1,7 +1,6 @@
 package de.rjst.rjstbackendservice.controller;
 
-import de.rjst.rjstbackendservice.database.PlayerEntity;
-import de.rjst.rjstbackendservice.database.PlayerRepository;
+import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.logic.PlayerService;
 import de.rjst.rjstbackendservice.logic.TestDataGeneratorFunction;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,25 +22,25 @@ public class PrivateController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("players")
-    public ResponseEntity<List<PlayerEntity>> getPlayers() {
+    public ResponseEntity<List<Player>> getPlayers() {
         return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("players/{id}")
-    public ResponseEntity<PlayerEntity> getPlayer(@PathVariable final Long id) {
+    public ResponseEntity<Player> getPlayer(@PathVariable final Long id) {
         return new ResponseEntity<>(playerService.getPlayerById(id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("players")
-    public ResponseEntity<PlayerEntity> postPlayer(@RequestBody final PlayerEntity player) {
+    public ResponseEntity<Player> postPlayer(@RequestBody final Player player) {
         return new ResponseEntity<>(playerService.postPlayer(player), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PutMapping("players")
-    public ResponseEntity<PlayerEntity> putPlayer(@RequestBody final PlayerEntity player) {
+    public ResponseEntity<Player> putPlayer(@RequestBody final Player player) {
         return new ResponseEntity<>(playerService.updatePlayer(player), HttpStatus.OK);
     }
 
@@ -56,7 +54,7 @@ public class PrivateController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("players/testdata")
-    public ResponseEntity<List<PlayerEntity>> generateTestData(@RequestParam final Long amount) {
+    public ResponseEntity<List<Player>> generateTestData(@RequestParam final Long amount) {
         return ResponseEntity.ok(testDataGeneratorFunction.apply(amount));
     }
 }

@@ -18,14 +18,13 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
-    private final AuditRepository auditRepository;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.SECONDS)
     public void process() {
         boolean pending = true;
         while (pending) {
             pending = Boolean.TRUE.equals(jobTransactionOperations.execute(txStatus -> {
-                final List<PlayerEntity> players = playerRepository.findTop50ByProcessStateOrderByIdAsc(ProcessState.WAITING);
+                final List<Player> players = playerRepository.findTop50ByProcessStateOrderByIdAsc(ProcessState.WAITING);
                 if (players.isEmpty()) {
                     return false;
                 }
@@ -36,19 +35,10 @@ public class PlayerJob {
                     player.setThread(Thread.currentThread().getName());
                     player.setUpdated(LocalDateTime.now());
                     playerRepository.save(player);
-                    audit(player);
                 });
                 return true;
             }));
         }
     }
-
-    private void audit(final PlayerEntity player) {
-        final AuditEntity audit = new AuditEntity();
-        audit.setName(player.getName());
-        audit.setCreated(LocalDateTime.now());
-        auditRepository.save(audit);
-    }
-
 
 }

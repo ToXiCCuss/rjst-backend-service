@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "audit_player")
-public class AuditEntity {
+@Table(name = "player")
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +24,19 @@ public class AuditEntity {
 
     private String name;
 
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private ProcessState processState;
+
+    private String pod;
+
+    private String thread;
+
+    private BigInteger balance = BigInteger.ZERO;
+
     private LocalDateTime created;
+
+    private LocalDateTime updated;
+
 }

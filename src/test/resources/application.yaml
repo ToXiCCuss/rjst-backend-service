@@ -8,34 +8,20 @@ spring:
       minimum-idle: 1
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-  ldap:
-    base: dc=rjst,dc=de
-    urls: ldap://vpn.rjst.de:389
-    username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
-    password: "123"
-  boot:
-    admin:
-      client:
-        url: http://localhost:8080
-        instance:
-          service-base-url: https://rjst-backend-service.rjst.de
-          management-base-url: http://localhost:8084
-          name: rjst-backend-service
-
+      ddl-auto: none
+    show-sql: false
+  liquibase:
+    default-schema: public
+    enabled: true
+    change-log: classpath:changelog.yaml
 security:
-  tool-user: "trjstbackend"
-
+  ldap:
+    url: ldap://vpn.rjst.de:389
+    username: "trjstbackend"
+    password: "123"
 springdoc:
   swagger-ui:
     use-root-path: true
-  api-docs:
-    version: openapi_3_1
-
-server:
-  error:
-    include-stacktrace: never
 
 management:
   endpoints:

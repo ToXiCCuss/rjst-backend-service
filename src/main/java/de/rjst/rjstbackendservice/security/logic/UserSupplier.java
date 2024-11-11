@@ -23,12 +23,17 @@ public class UserSupplier implements Function<String, UserDetails> {
 
     @Override
     public final UserDetails apply(final String username) {
-        final List<String> groups = groupsByUserSupplier.apply(username);
+        final List<String> groups;
+        try {
+            groups = groupsByUserSupplier.apply(username);
+        } catch (final RuntimeException e) {
+            throw new UsernameNotFoundException("No groups found: " + username);
+        }
+
         if (groups.isEmpty()) {
             throw new UsernameNotFoundException("No groups found: " + username);
         }
 
-        final UserDetails result = userDetailsMapper.apply(username, groups);
-        return result;
+        return userDetailsMapper.apply(username, groups);
     }
 }

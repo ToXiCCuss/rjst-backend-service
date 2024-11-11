@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
-public class TestController {
+@RequestMapping("/ip")
+public class IpController {
 
-    @GetMapping("/ip")
+    @GetMapping
     public String getIp(final HttpServletRequest request) {
         final String clientIp = request.getRemoteAddr();
         return "Your IP address is " + clientIp;

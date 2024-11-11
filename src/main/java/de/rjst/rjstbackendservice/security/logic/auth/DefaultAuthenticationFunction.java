@@ -1,6 +1,6 @@
 package de.rjst.rjstbackendservice.security.logic.auth;
 
-import de.rjst.rjstbackendservice.security.util.Utils;
+import de.rjst.rjstbackendservice.security.util.LdapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ldap.core.ContextSource;
@@ -21,7 +21,7 @@ public class DefaultAuthenticationFunction implements BiFunction<String, String,
 
     @Override
     public final Boolean apply(final String username, final String password) {
-        final String user = Utils.getLdapPath(username, BASE_PATH);
+        final String user = LdapUtil.getLdapPath(username, BASE_PATH);
         boolean result = true;
         try {
             final ContextSource contextSource = ldapTemplate.getContextSource();

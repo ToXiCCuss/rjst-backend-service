@@ -13,9 +13,6 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties("security")
 public class SecurityProperties {
 
-    @NotBlank
-    private String toolUser;
-
     @Delimiter(",")
     private String[] permitAll = {
             "/swagger-ui/**",

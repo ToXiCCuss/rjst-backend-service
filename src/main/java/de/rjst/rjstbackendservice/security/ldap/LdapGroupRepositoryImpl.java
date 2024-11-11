@@ -1,5 +1,6 @@
 package de.rjst.rjstbackendservice.security.ldap;
 
+import de.rjst.rjstbackendservice.security.config.LdapProperties;
 import de.rjst.rjstbackendservice.security.config.SecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ldap.core.AttributesMapper;
@@ -13,15 +14,13 @@ import java.util.List;
 @Service
 public class LdapGroupRepositoryImpl implements LdapGroupRepository {
 
-    private final SecurityProperties securityProperties;
-
+    private final LdapProperties ldapProperties;
     private final LdapOperations ldapOperations;
-
     private final AttributesMapper<LdapGroup> ldapGroupMapper;
 
     @Override
     public final List<LdapGroup> findAll() {
-        final String base = String.format("ou=%s,ou=tool,ou=groups", securityProperties.getToolUser());
+        final String base = String.format("ou=%s,ou=tool,ou=groups", ldapProperties.getUsername());
         final SearchControls controls = new SearchControls();
         controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         final String filter = "(objectClass=posixGroup)";

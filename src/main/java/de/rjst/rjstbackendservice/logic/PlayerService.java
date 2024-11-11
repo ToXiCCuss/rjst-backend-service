@@ -1,18 +1,18 @@
 package de.rjst.rjstbackendservice.logic;
 
-import de.rjst.rjstbackendservice.database.PlayerEntity;
+import de.rjst.rjstbackendservice.database.Player;
 
 import java.util.List;
 
 public interface PlayerService {
 
-    List<PlayerEntity> getPlayers();
+    List<Player> getPlayers();
 
-    PlayerEntity getPlayerById(Long id);
+    Player getPlayerById(Long id);
 
-    PlayerEntity postPlayer(PlayerEntity player);
+    Player postPlayer(Player player);
 
-    PlayerEntity updatePlayer(PlayerEntity player);
+    Player updatePlayer(Player player);
 
     boolean deletePlayer(Long id);
 
