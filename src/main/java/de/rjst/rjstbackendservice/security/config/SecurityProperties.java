@@ -20,8 +20,8 @@ public class SecurityProperties {
     private String[] permitAll = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/actuator/health/liveness",
-            "/actuator/health/readiness",
+            "/management/health/liveness",
+            "/management/health/readiness",
             "/error",
             "/test",
             "/"
