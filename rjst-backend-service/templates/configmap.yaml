@@ -20,7 +20,7 @@ data:
           client:
             url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
             instance:
-              service-base-url: http://${K8S_POD_IP}:8080
+              service-base-url: https://nextgen-network.rjst.de
               management-base-url: http://${K8S_POD_IP}:8081
               name: rjst-backend-service
       ldap:
