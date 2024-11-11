@@ -29,7 +29,11 @@ data:
         username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
         password: "123"
     security:
+      pseudo-user-path: "ou=pseudo,ou=users,dc=rjst,dc=de"
+      default-user-path: "ou=team,ou=users,dc=rjst,dc=de"
       tool-user: "trjstbackend"
     springdoc:
       swagger-ui:
         use-root-path: true
+      api-docs:
+        version: openapi_3_1
