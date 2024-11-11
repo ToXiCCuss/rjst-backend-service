@@ -18,7 +18,7 @@ data:
       boot:
         admin:
           client:
-            url: http://rjst-spring-boot-admin.dev.svc.cluster.local
+            url: http://rjst-spring-boot-admin.dev.svc.cluster.local:8080
             instance:
               service-base-url: http://${K8S_POD_IP}:8080
               management-base-url: http://${K8S_POD_IP}:8081
