@@ -18,27 +18,24 @@ public class PlayerJob {
 
     private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
+    private final LockRepository lockRepository;
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.SECONDS)
     public void process() {
-        boolean pending = true;
-        while (pending) {
-            pending = Boolean.TRUE.equals(jobTransactionOperations.execute(txStatus -> {
-                final List<Player> players = playerRepository.findTop50ByProcessStateOrderByIdAsc(ProcessState.WAITING);
-                if (players.isEmpty()) {
-                    return false;
+        jobTransactionOperations.executeWithoutResult(transactionStatus -> {
+            if (lockRepository.tryAdvisoryLock()) {
+                log.info("Acquired lock");
+                try {
+                    Thread.sleep(30000L);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-                players.forEach(player -> {
-                    log.info("Processing player {}", player.getId());
-                    player.setProcessState(ProcessState.FINISHED);
-                    player.setPod(System.getenv("HOSTNAME"));
-                    player.setThread(Thread.currentThread().getName());
-                    player.setUpdated(LocalDateTime.now());
-                    playerRepository.save(player);
-                });
-                return true;
-            }));
-        }
+                lockRepository.releaseAdvisoryLock();
+                log.info("Released lock");
+            } else {
+                log.info("Could not acquire lock");
+            }
+        });
     }
 
 }

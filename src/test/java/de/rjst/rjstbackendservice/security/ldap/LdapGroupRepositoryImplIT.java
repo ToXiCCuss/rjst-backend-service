@@ -12,7 +12,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class LdapGroupRepositoryImplIT {
 
     @Autowired
-    private LdapGroupRepositoryImpl underTest;
+    private LdapGroupRepository underTest;
 
     @Test
     void findAll() {

@@ -23,17 +23,11 @@ data:
               service-base-url: https://rjst-backend-service.rjst.de
               management-base-url: http://rjst-backend-service.dev.svc.cluster.local
               name: rjst-backend-service
-      ldap:
-        base: dc=rjst,dc=de
-        urls: ldap://vpn.rjst.de:389
-        username: cn=trjstbackend,ou=tool,ou=users,dc=rjst,dc=de
-        password: "123"
     security:
-      pseudo-user-path: "ou=pseudo,ou=users,dc=rjst,dc=de"
-      default-user-path: "ou=team,ou=users,dc=rjst,dc=de"
-      tool-user: "trjstbackend"
+      ldap:
+        url: ldap://vpn.rjst.de:389
+        username: "trjstbackend"
+        password: "123"
     springdoc:
       swagger-ui:
         use-root-path: true
-      api-docs:
-        version: openapi_3_1
