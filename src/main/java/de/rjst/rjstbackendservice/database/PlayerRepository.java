@@ -11,9 +11,4 @@ import java.util.List;
 
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    String SKIP_LOCKED = "-2";
-
-    @QueryHints(@QueryHint(name = AvailableSettings.JAKARTA_LOCK_TIMEOUT, value = SKIP_LOCKED))
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    List<Player> findTop50ByProcessStateOrderByIdAsc(ProcessState processState);
 }

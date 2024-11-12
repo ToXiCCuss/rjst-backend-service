@@ -22,20 +22,18 @@ public class PlayerJob {
 
     @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.SECONDS)
     public void process() {
-        jobTransactionOperations.executeWithoutResult(transactionStatus -> {
-            if (lockRepository.tryAdvisoryLock()) {
-                log.info("Acquired lock");
-                try {
-                    Thread.sleep(30000L);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                lockRepository.releaseAdvisoryLock();
-                log.info("Released lock");
-            } else {
-                log.info("Could not acquire lock");
+        if (lockRepository.tryAdvisoryLock()) {
+            log.info("Acquired lock");
+            try {
+                Thread.sleep(30000L);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        });
+            lockRepository.releaseAdvisoryLock();
+            log.info("Released lock");
+        } else {
+            log.info("Could not acquire lock");
+        }
     }
 
 }

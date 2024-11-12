@@ -10,7 +10,7 @@ data:
       datasource:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
         hikari:
-          minimum-idle: 1
+          minimum-idle: 0
       jpa:
         hibernate:
           ddl-auto: none
