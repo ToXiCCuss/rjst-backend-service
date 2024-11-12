@@ -23,6 +23,10 @@ data:
               service-base-url: https://rjst-backend-service.rjst.de
               management-base-url: http://rjst-backend-service.dev.svc.cluster.local
               name: rjst-backend-service
+    liquibase:
+      default-schema: public
+      enabled: true
+      change-log: classpath:changelog.yaml
     security:
       ldap:
         url: ldap://vpn.rjst.de:389
