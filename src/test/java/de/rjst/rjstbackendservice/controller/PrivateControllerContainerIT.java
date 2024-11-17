@@ -41,7 +41,6 @@ class PrivateControllerContainerIT extends TestContainerIT {
 
     }
 
-    @WithMockUser(authorities = "USER")
     @Test
     void getPlayer() {
         Player player = new Player();
@@ -51,7 +50,6 @@ class PrivateControllerContainerIT extends TestContainerIT {
         player.setUpdated(LocalDateTime.now());
 
         playerRepository.save(player);
-        System.out.println(ANY_USER_LOGIN);
         final Player result = given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Basic " + ANY_USER_LOGIN)

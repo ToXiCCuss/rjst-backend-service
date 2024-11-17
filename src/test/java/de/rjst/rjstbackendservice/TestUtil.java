@@ -12,5 +12,5 @@ public class TestUtil {
     public static final Integer ANY_INTEGER = 1;
 
 
-    public static String ANY_USER_LOGIN = Base64.getEncoder().encodeToString("rstenzhorn 123".getBytes());
+    public static String ANY_USER_LOGIN = Base64.getEncoder().encodeToString("rstenzhorn:123".getBytes());
 }
