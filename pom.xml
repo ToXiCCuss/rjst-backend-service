@@ -176,6 +176,7 @@
                         </buildpacks>
                         <env>
                             <BP_SPRING_CLOUD_BINDINGS_DISABLED>true</BP_SPRING_CLOUD_BINDINGS_DISABLED>
+                            <BPL_SPRING_CLOUD_BINDINGS_DISABLED>true</BPL_SPRING_CLOUD_BINDINGS_DISABLED>
                             <BP_LAUNCHER_UID>1000</BP_LAUNCHER_UID>
                             <BP_LAUNCHER_GID>1000</BP_LAUNCHER_GID>
                         </env>
