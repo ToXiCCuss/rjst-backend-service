@@ -166,54 +166,17 @@
         <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.hibernate.orm.tooling</groupId>
-                <artifactId>hibernate-enhance-maven-plugin</artifactId>
-                <version>${hibernate.version}</version>
-                <executions>
-                    <execution>
-                        <id>enhance</id>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                        <configuration>
-                            <enableLazyInitialization>true</enableLazyInitialization>
-                            <enableDirtyTracking>true</enableDirtyTracking>
-                            <enableAssociationManagement>true</enableAssociationManagement>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <buildpacks>
-                            <buildpack>gcr.io/paketo-buildpacks/adoptium</buildpack>
-                            <buildpack>urn:cnb:builder:paketo-buildpacks/java</buildpack>
-                        </buildpacks>
                         <env>
-                            <BP_JVM_VERSION> 21</BP_JVM_VERSION>
+                            <BP_LAUNCHER_UID>1000</BP_LAUNCHER_UID>
+                            <BP_LAUNCHER_GID>1000</BP_LAUNCHER_GID>
                         </env>
                     </image>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>process-aot</id>
-                        <goals>
-                            <goal>process-aot</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>build-info</id>
                         <goals>
