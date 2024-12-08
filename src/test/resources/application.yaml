@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://vpn.rjst.de:5432/backend
+    username: postgres
+    password: 70pNJTkISyghR9puwGKLjt2XGl38tv
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    default-schema: public
+    enabled: true
+    change-log: classpath:changelog.yaml
+security:
+  ldap:
+    url: ldap://vpn.rjst.de:389
+    username: "trjstbackend"
+    password: "123"
+springdoc:
+  swagger-ui:
+    use-root-path: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
