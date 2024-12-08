@@ -170,7 +170,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
+                        <buildpacks>
+                            <buildpack>gcr.io/paketo-buildpacks/adoptium</buildpack>
+                            <buildpack>urn:cnb:builder:paketo-buildpacks/java</buildpack>
+                        </buildpacks>
                         <env>
+                            <BP_SPRING_CLOUD_BINDINGS_DISABLED>true</BP_SPRING_CLOUD_BINDINGS_DISABLED>
                             <BP_LAUNCHER_UID>1000</BP_LAUNCHER_UID>
                             <BP_LAUNCHER_GID>1000</BP_LAUNCHER_GID>
                         </env>
