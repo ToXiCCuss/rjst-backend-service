@@ -15,14 +15,6 @@ data:
         hibernate:
           ddl-auto: none
         open-in-view: false
-      boot:
-        admin:
-          client:
-            url: http://rjst-spring-boot-admin.dev.svc.cluster.local
-            instance:
-              service-base-url: https://rjst-backend-service.rjst.de
-              management-base-url: http://rjst-backend-service.dev.svc.cluster.local
-              name: rjst-backend-service
       liquibase:
         default-schema: public
         enabled: true
