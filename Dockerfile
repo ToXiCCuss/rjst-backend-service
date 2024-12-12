@@ -16,6 +16,4 @@ USER spring
 
 EXPOSE 8080
 
-RUN export JAVA_TOOL_OPTIONS="-Djavax.net.ssl.trustStore=/vault/secrets/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit"
-
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "-Djavax.net.ssl.trustStore=/vault/secrets/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit" , "app.jar"]
