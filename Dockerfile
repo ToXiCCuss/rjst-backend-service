@@ -14,6 +14,4 @@ RUN chown -R spring:spring /app
 
 USER spring
 
-EXPOSE 8080
-
-CMD ["java", "-jar", "-Djavax.net.ssl.trustStore=/vault/secrets/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit" , "app.jar"]
+CMD ["java", "-jar","app.jar"]
