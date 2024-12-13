@@ -14,4 +14,4 @@ RUN chown -R spring:spring /app
 
 USER spring
 
-CMD ["java", "-jar","app.jar"]
+CMD ["java", "-jar","-Dspring.cloud.kubernetes.discovery.primary-port-name=management","app.jar"]
