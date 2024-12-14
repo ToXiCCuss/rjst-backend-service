@@ -197,6 +197,22 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.21.0</version>
+                <configuration>
+                    <gitFlowConfig>
+                        <productionBranch>master</productionBranch>
+                        <developmentBranch>develop</developmentBranch>
+                    </gitFlowConfig>
+                    <allowSnapshots>true</allowSnapshots>
+                    <skipTestProject>true</skipTestProject>
+                    <pushRemote>false</pushRemote>
+                    <fetchRemote>false</fetchRemote>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
