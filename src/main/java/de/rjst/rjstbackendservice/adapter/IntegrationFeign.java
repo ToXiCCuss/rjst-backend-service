@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "integration", url = "rjst-integration.vpn.rjst.de")
+@FeignClient(name = "integration", url = "https://rjst-integration.vpn.rjst.de")
 public interface IntegrationFeign {
 
     @PostMapping("/data")
