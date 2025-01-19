@@ -19,6 +19,10 @@ data:
         default-schema: public
         enabled: true
         change-log: classpath:changelog.yaml
+      kafka:
+        bootstrap-servers: kafka.kafka.svc.cluster.local:9092
+        consumer:
+          group-id: test
     security:
       ldap:
         url: ldap://vpn.rjst.de:389
