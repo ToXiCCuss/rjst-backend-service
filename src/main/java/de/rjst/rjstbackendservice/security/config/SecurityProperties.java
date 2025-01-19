@@ -23,4 +23,6 @@ public class SecurityProperties {
             "/"
     };
 
+    private Boolean enabled = false;
+
 }
