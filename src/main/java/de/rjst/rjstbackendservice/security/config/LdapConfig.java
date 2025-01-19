@@ -20,7 +20,7 @@ public class LdapConfig {
     @Bean
     public LdapContextSource contextSource() {
         final String username = LdapUtil.getLdapPath(ldapProperties.getUsername(), USER_PATH);
-        LdapContextSource contextSource = new LdapContextSource();
+        final LdapContextSource contextSource = new LdapContextSource();
         contextSource.setUrl(ldapProperties.getUrl());
         contextSource.setBase(BASE_PATH);
         contextSource.setUserDn(username);

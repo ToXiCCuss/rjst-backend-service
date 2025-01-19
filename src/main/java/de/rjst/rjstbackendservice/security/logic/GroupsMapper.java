@@ -1,7 +1,7 @@
 package de.rjst.rjstbackendservice.security.logic;
 
-import de.rjst.rjstbackendservice.security.model.RoleDto;
-import de.rjst.rjstbackendservice.security.model.UserDetailsDto;
+import de.rjst.rjstbackendservice.security.model.Role;
+import de.rjst.rjstbackendservice.security.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ public class GroupsMapper implements BiFunction<String, List<String>, UserDetail
 
     @Override
     public final UserDetails apply(final String ldapUser, final List<String> groups) {
-        final UserDetailsDto result = new UserDetailsDto();
+        final User result = new User();
         result.setUsername(ldapUser);
 
-        final List<RoleDto> roles = groups.stream().map(RoleDto::new).toList();
+        final List<Role> roles = groups.stream().map(Role::new).toList();
         result.setRoles(roles);
         return result;
     }

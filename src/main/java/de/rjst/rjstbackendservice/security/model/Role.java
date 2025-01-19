@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @AllArgsConstructor
 @Data
-public class RoleDto implements GrantedAuthority {
+public class Role implements GrantedAuthority {
 
     private String authority;
 
