@@ -32,7 +32,7 @@ public class SpringSecurityConfig {
                 .cors(withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
-                        .requestMatchers("**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
