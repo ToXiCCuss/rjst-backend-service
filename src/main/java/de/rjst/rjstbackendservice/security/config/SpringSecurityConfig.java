@@ -33,6 +33,7 @@ public class SpringSecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(securityProperties.getPermitAll()).permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
