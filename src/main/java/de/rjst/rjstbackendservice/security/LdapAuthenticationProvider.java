@@ -31,7 +31,6 @@ public class LdapAuthenticationProvider implements AuthenticationProvider {
         if (!authenticationFunction.apply(username, password)) {
             throw new BadCredentialsException("Invalid Credentials");
         }
-
         final UserDetails user = userSupplier.apply(username);
         return new UsernamePasswordAuthenticationToken(user, credentials, user.getAuthorities());
     }
