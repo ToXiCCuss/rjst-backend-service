@@ -9,12 +9,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class UserDetailsDto implements UserDetails {
+public class User implements UserDetails {
 
     private String username;
     private String password;
 
-    private List<RoleDto> roles;
+    private List<Role> roles;
 
     @Override
     public final Collection<? extends GrantedAuthority> getAuthorities() {

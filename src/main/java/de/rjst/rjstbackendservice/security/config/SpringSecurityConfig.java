@@ -27,17 +27,19 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(withDefaults())
-                .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(x -> x
-                        .requestMatchers(securityProperties.getPermitAll()).permitAll()
-                        .requestMatchers("/actuator/**").hasAuthority("MONITORING")
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(withDefaults())
-                .authenticationProvider(authenticationProvider);
+        if (securityProperties.getEnabled()) {
+            httpSecurity.csrf(AbstractHttpConfigurer::disable).cors(withDefaults())
+                    .formLogin(AbstractHttpConfigurer::disable)
+                    .authorizeHttpRequests(x ->
+                            x.requestMatchers(securityProperties.getPermitAll()).permitAll().anyRequest().authenticated())
+                    .httpBasic(withDefaults())
+                    .authenticationProvider(authenticationProvider);
+        } else {
+            httpSecurity.csrf(AbstractHttpConfigurer::disable)
+                    .authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
+        }
+
+
         return httpSecurity.build();
     }
 

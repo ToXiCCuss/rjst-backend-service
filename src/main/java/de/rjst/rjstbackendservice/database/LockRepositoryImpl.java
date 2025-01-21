@@ -17,8 +17,7 @@ public class LockRepositoryImpl implements LockRepository {
     public boolean tryAdvisoryLock() {
         Query query = entityManager.createNativeQuery("SELECT pg_try_advisory_lock(:lockId)");
         query.setParameter("lockId", LOCK_ID);
-        Boolean result = (Boolean) query.getSingleResult();
-        return Boolean.TRUE.equals(result);
+        return (Boolean) query.getSingleResult();
     }
 
     @Override

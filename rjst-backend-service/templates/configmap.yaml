@@ -7,10 +7,14 @@ metadata:
 data:
   application.yaml: |
     spring:
+      data:
+        redis:
+          host: vpn.rjst.de
+          port: 6379
       datasource:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
         hikari:
-          minimum-idle: 0
+          minimum-idle: 1
       jpa:
         hibernate:
           ddl-auto: none
@@ -19,6 +23,10 @@ data:
         default-schema: public
         enabled: true
         change-log: classpath:changelog.yaml
+      kafka:
+        bootstrap-servers: kafka.kafka.svc.cluster.local:9092
+        consumer:
+          group-id: test
     security:
       ldap:
         url: ldap://vpn.rjst.de:389

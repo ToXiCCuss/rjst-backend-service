@@ -1,6 +1,5 @@
 package de.rjst.rjstbackendservice.security.config;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.Delimiter;
@@ -17,10 +16,13 @@ public class SecurityProperties {
     private String[] permitAll = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
+            "/actuator",
             "/actuator/**",
             "/error",
             "/test",
             "/"
     };
+
+    private Boolean enabled = true;
 
 }

@@ -14,4 +14,4 @@ RUN chown -R spring:spring /app
 
 USER spring
 
-CMD ["java", "-jar","-Dspring.cloud.kubernetes.discovery.primary-port-name=management","app.jar"]
+CMD ["java", "-jar","-Djavax.net.ssl.trustStore=/vault/secrets/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit","app.jar"]
