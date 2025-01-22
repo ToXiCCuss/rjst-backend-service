@@ -20,7 +20,6 @@ import java.util.Set;
 public class RedisController {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final ObjectMapper objectMapper;
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/keys")
@@ -33,7 +32,7 @@ public class RedisController {
     public RedisEntry getValue(@RequestParam final String key) {
         return RedisEntry.builder()
                 .ttl(redisTemplate.getExpire(key))
-                .value(objectMapper.convertValue(redisTemplate.opsForValue().get(key), Map.class))
+                .value(redisTemplate.opsForValue().get(key))
                 .build();
     }
 
