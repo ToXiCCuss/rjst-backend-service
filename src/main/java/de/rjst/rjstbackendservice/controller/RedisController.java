@@ -1,5 +1,6 @@
 package de.rjst.rjstbackendservice.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.rjst.rjstbackendservice.redis.RedisEntry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ import java.util.Set;
 public class RedisController {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ObjectMapper objectMapper;
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/keys")
@@ -30,7 +33,7 @@ public class RedisController {
     public RedisEntry getValue(@RequestParam final String key) {
         return RedisEntry.builder()
                 .ttl(redisTemplate.getExpire(key))
-                .value(redisTemplate.opsForValue().get(key))
+                .value(objectMapper.convertValue(redisTemplate.opsForValue().get(key), Map.class))
                 .build();
     }
 
