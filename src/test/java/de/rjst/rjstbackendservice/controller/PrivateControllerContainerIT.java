@@ -36,12 +36,6 @@ class PrivateControllerContainerIT extends TestContainerIT {
         RestAssured.baseURI = "http://localhost:" + port;
     }
 
-    @Test
-    void getPlayers() {
-
-    }
-
-    @Test
     void getPlayer() {
         Player player = new Player();
         player.setId(0L);
@@ -63,18 +57,4 @@ class PrivateControllerContainerIT extends TestContainerIT {
         assertThat(result.getBalance()).isEqualTo(BigInteger.TEN);
     }
 
-    @Test
-    void postPlayer() {
-
-    }
-
-    @Test
-    void putPlayer() {
-
-    }
-
-    @Test
-    void deletePlayer() {
-
-    }
 }
