@@ -4,4 +4,5 @@ spring-boot:
   istio:
     url: "rjst-backend-service.rjst.de"
   replicaCount: 1
-
+  serviceMonitor:
+    enabled: true
