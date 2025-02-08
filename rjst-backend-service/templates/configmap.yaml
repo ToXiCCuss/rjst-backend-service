@@ -37,5 +37,10 @@ data:
         use-root-path: true
     management:
       otlp:
+        metrics:
+          export:
+            url: http://jaeger-collector.istio-system.svc.cluster.local:4317
+        logging:
+          endpoint: http://jaeger-collector.istio-system.svc.cluster.local:4317
         tracing:
           endpoint: http://jaeger-collector.istio-system.svc.cluster.local:4317
