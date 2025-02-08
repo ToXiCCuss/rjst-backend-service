@@ -12,7 +12,7 @@ data:
           host: vpn.rjst.de
           port: 6379
       datasource:
-        url: jdbc:otel:postgresql://vpn.rjst.de:5432/backend
+        url: jdbc:postgresql://vpn.rjst.de:5432/backend
         hikari:
           minimum-idle: 1
       jpa:
