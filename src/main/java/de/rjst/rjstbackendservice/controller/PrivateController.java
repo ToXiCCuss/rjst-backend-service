@@ -1,11 +1,12 @@
 package de.rjst.rjstbackendservice.controller;
 
+import de.rjst.rjstbackendservice.adapter.IpQueryResponse;
+import de.rjst.rjstbackendservice.adapter.IpQueryService;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.logic.PlayerService;
 import de.rjst.rjstbackendservice.logic.TestDataGeneratorFunction;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ public class PrivateController {
 
     private final PlayerService playerService;
     private final TestDataGeneratorFunction testDataGeneratorFunction;
+    private final IpQueryService ipQueryService;
 
 
     @PreAuthorize("hasAuthority('USER')")
@@ -27,6 +29,12 @@ public class PrivateController {
     public ResponseEntity<List<Player>> getPlayers(HttpServletRequest request) {
         request.getHeaderNames().asIterator().forEachRemaining(System.out::println);
         return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("ipsearch")
+    public ResponseEntity<IpQueryResponse> getIpInfos(@RequestParam final String ip) {
+        return new ResponseEntity<>(ipQueryService.getIpQueryResponse(ip), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
