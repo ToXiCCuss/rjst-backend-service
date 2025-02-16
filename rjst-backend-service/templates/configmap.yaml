@@ -36,9 +36,9 @@ data:
       swagger-ui:
         use-root-path: true
     management:
-      zipkin:
-        tracing:
-          endpoint: http://jaeger-collector.istio-system.svc:9411/api/v2/spans
       tracing:
         sampling:
           probability: 1.0
+      otlp:
+        tracing:
+          endpoint: "http://jaeger-collector.istio-system.svc.cluster.local:4317"
