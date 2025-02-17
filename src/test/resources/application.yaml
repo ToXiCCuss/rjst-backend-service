@@ -44,4 +44,4 @@ management:
       probability: 1.0
   otlp:
     tracing:
-      endpoint: "http://jaeger-collector.istio-system.svc.cluster.local:4317"
+      endpoint: "http://jaeger-collector.istio-system.svc.cluster.local:4318/v1/traces"
