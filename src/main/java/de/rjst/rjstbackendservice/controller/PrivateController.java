@@ -5,7 +5,6 @@ import de.rjst.rjstbackendservice.adapter.IpQueryService;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.logic.PlayerService;
 import de.rjst.rjstbackendservice.logic.TestDataGeneratorFunction;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +25,7 @@ public class PrivateController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("players")
-    public ResponseEntity<List<Player>> getPlayers(HttpServletRequest request) {
-        request.getHeaderNames().asIterator().forEachRemaining(System.out::println);
+    public ResponseEntity<List<Player>> getPlayers() {
         return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
     }
 
