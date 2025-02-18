@@ -1,4 +1,4 @@
-FROM core.harbor.rjst.de/docker.io/eclipse-temurin:21-jre-alpine AS builder
+FROM docker.io/eclipse-temurin:21-jre-alpine AS builder
 
 WORKDIR /builder
 
@@ -6,7 +6,7 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=tools -jar app.jar extract --layers --destination extracted
 
-FROM core.harbor.rjst.de/docker.io/eclipse-temurin:21-jre-alpine
+FROM docker.io/eclipse-temurin:21-jre-alpine
 
 RUN apk --no-cache update && apk --no-cache upgrade
 
