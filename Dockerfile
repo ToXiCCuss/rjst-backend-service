@@ -1,17 +1,24 @@
-FROM eclipse-temurin:21.0.5_11-jre-jammy@sha256:5f8358c9d5615c18e95728e8b8528bda7ff40a7a5da2ac9a35b7a01f5d9b231a
+FROM core.harbor.rjst.de/docker.io/eclipse-temurin:21-jre-alpine AS builder
 
-RUN mkdir -p /app
+WORKDIR /builder
 
-COPY target/*.jar /app/app.jar
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+RUN java -Djarmode=tools -jar app.jar extract --layers --destination extracted
+
+FROM core.harbor.rjst.de/docker.io/eclipse-temurin:21-jre-alpine
+
+RUN apk --no-cache update && apk --no-cache upgrade
 
 WORKDIR /app
 
-RUN groupadd --gid 1000 spring
-
-RUN useradd --gid 1000 -M -N --uid 1000 spring
-
+RUN addgroup -g 1000 spring && adduser -u 1000 -G spring -D spring
 RUN chown -R spring:spring /app
-
 USER spring
 
-CMD ["java", "-jar","-Djavax.net.ssl.trustStore=/vault/secrets/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit","app.jar"]
+COPY --from=builder /builder/extracted/dependencies/ ./
+COPY --from=builder /builder/extracted/spring-boot-loader/ ./
+COPY --from=builder /builder/extracted/snapshot-dependencies/ ./
+COPY --from=builder /builder/extracted/application/ ./
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
