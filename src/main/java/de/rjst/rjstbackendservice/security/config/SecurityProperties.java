@@ -20,7 +20,8 @@ public class SecurityProperties {
             "/actuator/**",
             "/error",
             "/test",
-            "/"
+            "/",
+            "/index.html"
     };
 
     private Boolean enabled = true;
