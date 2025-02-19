@@ -2,6 +2,7 @@ package de.rjst.rjstbackendservice.security.logic;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,13 @@ import java.util.function.Function;
 @Service
 public class UserSupplier implements Function<String, UserDetails> {
 
-    private final Function<String, List<String>> groupsByUserSupplier;
-    private final BiFunction<String, List<String>, UserDetails> userDetailsMapper;
+    private final GroupsByUserSupplier groupsByUserSupplier;
+    private final GroupsMapper userDetailsMapper;
 
 
+    @Cacheable(value = "userDetails", key = "#username")
     @Override
-    public final UserDetails apply(final String username) {
+    public UserDetails apply(final String username) {
         final List<String> groups;
         try {
             groups = groupsByUserSupplier.apply(username);
