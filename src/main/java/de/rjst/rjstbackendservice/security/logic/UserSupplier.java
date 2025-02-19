@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static de.rjst.rjstbackendservice.cache.CacheNames.LDAP_GROUPS;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class UserSupplier implements Function<String, UserDetails> {
     private final GroupsMapper userDetailsMapper;
 
 
-    @Cacheable(value = "userDetails", key = "#username")
+    @Cacheable(value = LDAP_GROUPS, key = "#username")
     @Override
     public UserDetails apply(final String username) {
         final List<String> groups;
