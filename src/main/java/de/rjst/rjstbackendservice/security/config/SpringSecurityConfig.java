@@ -38,8 +38,6 @@ public class SpringSecurityConfig {
             httpSecurity.csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
         }
-
-
         return httpSecurity.build();
     }
 
