@@ -21,7 +21,7 @@ public class SecurityProperties {
             "/error",
             "/test",
             "/",
-            "/index.html"
+            "/swagger-ui.html"
     };
 
     private Boolean enabled = true;
