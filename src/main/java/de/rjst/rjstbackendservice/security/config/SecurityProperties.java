@@ -14,7 +14,14 @@ public class SecurityProperties {
 
     @Delimiter(",")
     private String[] permitAll = {
-            "/**"
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/actuator",
+            "/actuator/**",
+            "/error",
+            "/test",
+            "/",
+            "/index.html"
     };
 
     private Boolean enabled = true;
