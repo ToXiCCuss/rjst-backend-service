@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("public")
 public class PublicController {
 
-
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("permitAll()")
     @GetMapping
     public ResponseEntity<String> getPublic() {
         return new ResponseEntity<>("Hallo", HttpStatus.OK);
