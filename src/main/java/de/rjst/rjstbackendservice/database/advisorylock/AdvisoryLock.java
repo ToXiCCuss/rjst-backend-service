@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface AdvisoryLock {
 
-    long key();
+    int appId();
+    int lockId() default 0;
 }
