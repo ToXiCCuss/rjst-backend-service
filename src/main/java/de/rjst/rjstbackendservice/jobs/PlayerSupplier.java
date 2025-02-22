@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -22,14 +23,16 @@ public class PlayerSupplier {
     @AdvisoryLock(key = 1L)
     @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 60)
     public List<Player> get() {
-        var all = playerRepository.findByProcessState(ProcessState.WAITING);
-        all.stream().forEach(player -> {
-            player.setProcessState(ProcessState.RUNNING);
-        });
-        if (!all.isEmpty()) {
-            log.info("Found {} players to process", all.size());
+        List<Player> result = new ArrayList<>();
+        final var players = playerRepository.findByProcessState(ProcessState.WAITING);
+        if (!players.isEmpty()) {
+            log.info("Found {} players to process", players.size());
+            players.stream().forEach(player -> {
+                player.setProcessState(ProcessState.RUNNING);
+            });
+            result = playerRepository.saveAll(players);
         }
-        return playerRepository.saveAll(all);
+        return result;
     }
 
 }
