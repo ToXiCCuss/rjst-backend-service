@@ -27,6 +27,11 @@ public class UserProcessSupplier {
             player.setProcessState(ProcessState.RUNNING);
         });
         log.info("Processing {} players", all.size());
+        try {
+            Thread.sleep(2500L);
+        } catch (InterruptedException e) {
+            log.error("Interrupted", e);
+        }
         return playerRepository.saveAll(all);
     }
 
