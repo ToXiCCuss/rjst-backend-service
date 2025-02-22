@@ -1,5 +1,6 @@
 package de.rjst.rjstbackendservice.jobs;
 
+import de.rjst.rjstbackendservice.database.Player;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +21,9 @@ public class PollingJob {
     public void poll() {
         final var players = playerSupplier.get();
         final ExecutorService executorService = Executors.newFixedThreadPool(10);
-        players.forEach(player -> executorService.submit(() -> playerConsumer.accept(player)));
+        for (final Player player : players) {
+            executorService.submit(() -> playerConsumer.accept(player));
+        }
         executorService.close();
     }
 
