@@ -24,7 +24,7 @@ public class AdvisoryLockAspect {
         if (lockAcquired) {
             result = joinPoint.proceed();
         } else {
-            log.warn("Failed to acquire lock with key {}", lockKey);
+            log.debug("Failed to acquire lock with key {}", lockKey);
         }
         return result;
     }
