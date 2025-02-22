@@ -30,7 +30,7 @@ public class PlayerSupplier {
             players.stream().forEach(player -> {
                 player.setProcessState(ProcessState.RUNNING);
             });
-            result = playerRepository.saveAll(players);
+            result = players;
         }
         return result;
     }
