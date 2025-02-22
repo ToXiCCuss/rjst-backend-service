@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class PollingJob {
     private final PlayerSupplier playerSupplier;
     private final PlayerConsumer playerConsumer;
 
-    @Scheduled(fixedDelay = 1000L)
+    @Scheduled(fixedDelay = 8L, timeUnit = TimeUnit.HOURS)
     public void poll() {
         final var players = playerSupplier.get();
         final ExecutorService executorService = Executors.newFixedThreadPool(10);
