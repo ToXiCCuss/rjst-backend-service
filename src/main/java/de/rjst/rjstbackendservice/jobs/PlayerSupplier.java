@@ -25,7 +25,7 @@ public class PlayerSupplier {
     public List<Player> get() {
         List<Player> result = new ArrayList<>();
         final var players = playerRepository.findByProcessState(ProcessState.WAITING);
-        if (players != null && !players.isEmpty()) {
+        if (!players.isEmpty()) {
             log.info("Found {} players to process", players.size());
             players.stream().forEach(player -> {
                 player.setProcessState(ProcessState.RUNNING);

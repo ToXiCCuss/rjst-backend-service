@@ -21,10 +21,12 @@ public class PollingJob {
     public void poll() {
         final var players = playerSupplier.get();
         final ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (final Player player : players) {
-            executorService.submit(() -> playerConsumer.accept(player));
+        if (players != null) {
+            for (final Player player : players) {
+                executorService.submit(() -> playerConsumer.accept(player));
+            }
+            executorService.close();
         }
-        executorService.close();
     }
 
 }
