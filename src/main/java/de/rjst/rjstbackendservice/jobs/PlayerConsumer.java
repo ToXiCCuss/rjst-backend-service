@@ -19,7 +19,7 @@ public class PlayerConsumer implements Consumer<Player> {
 
     @RequestLog(key = "playerId", value = "#player.id")
     @Override
-    public void accept(Player player) {
+    public void accept(final Player player) {
         player.setProcessState(ProcessState.FINISHED);
         log.info("Processed player {}", player.getId());
         playerRepository.saveAndFlush(player);
