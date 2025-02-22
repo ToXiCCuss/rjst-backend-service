@@ -21,7 +21,7 @@ public class PlayerConsumer implements Consumer<Player> {
     @Override
     public void accept(final Player player) {
         player.setProcessState(ProcessState.FINISHED);
-        log.info("Processed player");
+        log.info("Processed player {}", player.getId());
         playerRepository.saveAndFlush(player);
     }
 }

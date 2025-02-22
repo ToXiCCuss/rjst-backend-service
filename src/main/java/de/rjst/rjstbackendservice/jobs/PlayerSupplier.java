@@ -20,7 +20,7 @@ public class PlayerSupplier {
 
     private final PlayerRepository playerRepository;
 
-    @AdvisoryLock(appId = 1)
+    @AdvisoryLock(key = 1L)
     @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 60)
     public List<Player> get() {
         List<Player> result = new ArrayList<>();
