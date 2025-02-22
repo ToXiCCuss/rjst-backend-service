@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LockRepository {
 
+    private static final String LOCK_QUERY = "SELECT pg_try_advisory_xact_lock(:appId, :lockId)";
     private static final String APP_ID = "appId";
     private static final String LOCK_ID = "lockId";
 
     private final EntityManager entityManager;
 
     public final boolean tryAdvisoryLock(final int appId, final int lockId) {
-        final Query query = entityManager.createNativeQuery("SELECT pg_try_advisory_xact_lock(:appId, :lockId)");
+        final Query query = entityManager.createNativeQuery(LOCK_QUERY);
         query.setParameter(LOCK_ID, lockId);
         query.setParameter(APP_ID, appId);
         return (Boolean) query.getSingleResult();
