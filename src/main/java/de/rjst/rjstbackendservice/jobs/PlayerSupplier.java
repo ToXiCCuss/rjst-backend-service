@@ -26,7 +26,9 @@ public class PlayerSupplier {
         all.stream().forEach(player -> {
             player.setProcessState(ProcessState.RUNNING);
         });
-        log.info("Processing {} players", all.size());
+        if (!all.isEmpty()) {
+            log.info("Found {} players to process", all.size());
+        }
         return playerRepository.saveAll(all);
     }
 
