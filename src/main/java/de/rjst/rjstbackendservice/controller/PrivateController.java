@@ -4,7 +4,7 @@ import de.rjst.rjstbackendservice.adapter.IpQueryResponse;
 import de.rjst.rjstbackendservice.adapter.IpQueryService;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.logic.PlayerService;
-import de.rjst.rjstbackendservice.logic.TestDataGeneratorFunction;
+import de.rjst.rjstbackendservice.logic.TestDataGeneratorConsumer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 public class PrivateController {
 
     private final PlayerService playerService;
-    private final TestDataGeneratorFunction testDataGeneratorFunction;
+    private final TestDataGeneratorConsumer testDataGeneratorConsumer;
     private final IpQueryService ipQueryService;
 
 
@@ -63,7 +63,8 @@ public class PrivateController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("players/testdata")
-    public ResponseEntity<List<Player>> generateTestData(@RequestParam final Long amount) {
-        return ResponseEntity.ok(testDataGeneratorFunction.apply(amount));
+    public ResponseEntity<Void> generateTestData(@RequestParam final Long amount) {
+        testDataGeneratorConsumer.accept(amount);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

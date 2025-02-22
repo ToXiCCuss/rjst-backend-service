@@ -7,35 +7,32 @@ import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import de.rjst.rjstbackendservice.database.ProcessState;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.support.TransactionOperations;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 @Service
-public class TestDataGeneratorFunction implements Function<Long, List<Player>> {
+public class TestDataGeneratorConsumer implements Consumer<Long> {
 
-    private final TransactionOperations jobTransactionOperations;
     private final PlayerRepository playerRepository;
     private final Faker faker;
 
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
-    public List<Player> apply(final Long amount) {
-        return jobTransactionOperations.execute(status -> {
-            final List<Player> result = new ArrayList<>();
-            for (long i = 0L; i < amount; i++) {
-                final Player player = generatePlayer();
-                final Player saved = playerRepository.save(player);
-                result.add(saved);
-            }
-            return result;
-        });
+    public void accept(final Long amount) {
+        for (long i = 0L; i < amount; i++) {
+            final Player player = generatePlayer();
+            playerRepository.save(player);
+        }
     }
 
+    @NonNull
     private Player generatePlayer() {
         final Player result = new Player();
         result.setProcessState(ProcessState.WAITING);
