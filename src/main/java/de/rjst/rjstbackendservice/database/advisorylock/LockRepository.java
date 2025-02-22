@@ -11,7 +11,7 @@ public class LockRepository {
 
     private static final String LOCK_QUERY = "SELECT pg_try_advisory_xact_lock(:lockId)";
     private static final String APP_ID = "appId";
-    private static final String LOCK_ID = "lockID";
+    private static final String LOCK_ID = "lockId";
 
     private final EntityManager entityManager;
 
