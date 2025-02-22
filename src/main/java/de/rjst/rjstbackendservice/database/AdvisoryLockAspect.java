@@ -20,7 +20,6 @@ public class AdvisoryLockAspect {
         Object result = null;
         final long lockKey = advisoryLock.key();
 
-
         final var lockAcquired = lockRepository.tryAdvisoryLock(lockKey);
         if (lockAcquired) {
             result = joinPoint.proceed();

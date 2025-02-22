@@ -12,7 +12,7 @@ public class PollingJob {
 
     @Scheduled(fixedRate = 500)
     public void poll() {
-        var players = userProcessSupplier.get();
+        final var players = userProcessSupplier.get();
     }
 
 }
