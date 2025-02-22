@@ -1,6 +1,6 @@
 package de.rjst.rjstbackendservice.jobs;
 
-import de.rjst.rjstbackendservice.database.AdvisoryLock;
+import de.rjst.rjstbackendservice.database.advisorylock.AdvisoryLock;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import de.rjst.rjstbackendservice.database.ProcessState;

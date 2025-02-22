@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.database;
+package de.rjst.rjstbackendservice.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface AdvisoryLock {
+public @interface RequestLog {
 
-    long key();
+    String key();
+    String value();
+
 }

@@ -1,13 +1,13 @@
 package de.rjst.rjstbackendservice.jobs;
 
 import de.rjst.rjstbackendservice.database.Player;
+import de.rjst.rjstbackendservice.logging.RequestLog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -26,31 +26,16 @@ public class PollingJob {
         try (final ExecutorService executorService = Executors.newFixedThreadPool(10)) {
             if (players != null) {
                 for (final Player player : players) {
-                    executorService.submit(() -> {
-                        MDC.put("playerId", String.valueOf(player.getId()));
-                        try {
-                            playerConsumer.accept(player);
-                        } finally {
-                            MDC.remove("playerId");
-                        }
-                    });
+                    executorService.submit(process(player));
                 }
             }
         }
     }
 
-    public Runnable wrapWithMDC(Runnable task) {
-        final Map<String, String> contextMap = MDC.getCopyOfContextMap();
+    @RequestLog(key = "playerId", value = "#player.id")
+    private Runnable process(final Player player) {
         return () -> {
-            if (contextMap != null) {
-                MDC.setContextMap(contextMap);
-            }
-            try {
-                task.run();
-            } finally {
-                MDC.clear();
-            }
+            playerConsumer.accept(player);
         };
     }
-
 }
