@@ -18,13 +18,13 @@ public class AdvisoryLockAspect {
     @Around("@annotation(advisoryLock)")
     public Object around(final ProceedingJoinPoint joinPoint, final AdvisoryLock advisoryLock) throws Throwable {
         Object result = null;
-        final long lockKey = advisoryLock.key();
 
-        final var lockAcquired = lockRepository.tryAdvisoryLock(lockKey);
-        if (lockAcquired) {
+        final int appId = advisoryLock.appId();
+        final int lockId = advisoryLock.lockId();
+        if (lockRepository.tryAdvisoryLock(appId, lockId)) {
             result = joinPoint.proceed();
         } else {
-            log.debug("Failed to acquire lock with key {}", lockKey);
+            log.debug("Failed to acquire lock with appId {}, lockId {}", appId, lockId);
         }
         return result;
     }
