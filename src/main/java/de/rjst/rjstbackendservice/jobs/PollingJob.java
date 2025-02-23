@@ -19,7 +19,7 @@ public class PollingJob {
     private final PlayerConsumer playerConsumer;
 
     @Scheduled(fixedDelay = 250L, timeUnit = TimeUnit.MILLISECONDS)
-    public void poll() throws InterruptedException {
+    public void poll() {
         final var players = playerSupplier.get();
         if (players != null) {
             try (final ExecutorService executorService = Executors.newFixedThreadPool(10)) {
@@ -27,7 +27,6 @@ public class PollingJob {
                     executorService.submit(() -> playerConsumer.accept(player));
                 }
                 executorService.shutdown();
-                executorService.awaitTermination(5L, TimeUnit.MINUTES);
             }
         }
     }
