@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class RequestLogAspect {
+public class AsyncProcessingLogAspect {
 
     private final ExpressionParser parser = new SpelExpressionParser();
 
