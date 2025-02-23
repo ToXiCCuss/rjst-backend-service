@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.database.advisorylock;
+package de.rjst.rjstbackendservice.aop.advisorylock;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

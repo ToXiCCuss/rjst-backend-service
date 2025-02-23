@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.logging;
+package de.rjst.rjstbackendservice.aop.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface RequestLog {
+public @interface AsyncProcessingLog {
 
     String key();
     String value();

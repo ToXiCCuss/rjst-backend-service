@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.logging;
+package de.rjst.rjstbackendservice.aop.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,12 +19,12 @@ public class RequestLogAspect {
 
     private final ExpressionParser parser = new SpelExpressionParser();
 
-    @Around("@annotation(requestLog)")
-    public Object around(final ProceedingJoinPoint joinPoint, final RequestLog requestLog) throws Throwable {
-        final String value = getValue(joinPoint, requestLog);
-        final String key = requestLog.key();
-        MDC.put(key, value);
+    @Around("@annotation(asyncProcessingLog)")
+    public Object around(final ProceedingJoinPoint joinPoint, final AsyncProcessingLog asyncProcessingLog) throws Throwable {
+        final var key = asyncProcessingLog.key();
+        final var value = getValue(joinPoint, asyncProcessingLog);
         try {
+            MDC.put(key, value);
             return joinPoint.proceed();
         } finally {
             MDC.remove(key);
@@ -32,15 +32,15 @@ public class RequestLogAspect {
     }
 
     @Nullable
-    private String getValue(final ProceedingJoinPoint joinPoint, final RequestLog requestLog) {
-        final CodeSignature signature = (CodeSignature) joinPoint.getSignature();
+    private String getValue(final ProceedingJoinPoint joinPoint, final AsyncProcessingLog asyncProcessingLog) {
+        final var signature = (CodeSignature) joinPoint.getSignature();
         final Object[] args = joinPoint.getArgs();
         final EvaluationContext context = new StandardEvaluationContext();
         final String[] parameterNames = signature.getParameterNames();
         for (int i = 0; i < parameterNames.length; i++) {
             context.setVariable(parameterNames[i], args[i]);
         }
-        final Expression expression = parser.parseExpression(requestLog.value());
+        final Expression expression = parser.parseExpression(asyncProcessingLog.value());
         return expression.getValue(context, String.class);
     }
 

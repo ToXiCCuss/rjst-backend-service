@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.database.advisorylock;
+package de.rjst.rjstbackendservice.aop.advisorylock;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

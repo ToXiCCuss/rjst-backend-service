@@ -1,4 +1,4 @@
-package de.rjst.rjstbackendservice.database.advisorylock;
+package de.rjst.rjstbackendservice.aop.advisorylock;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

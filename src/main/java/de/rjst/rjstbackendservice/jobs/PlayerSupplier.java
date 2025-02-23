@@ -3,7 +3,7 @@ package de.rjst.rjstbackendservice.jobs;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import de.rjst.rjstbackendservice.database.ProcessState;
-import de.rjst.rjstbackendservice.database.advisorylock.AdvisoryLock;
+import de.rjst.rjstbackendservice.aop.advisorylock.AdvisoryLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -28,6 +28,7 @@ public class PlayerSupplier {
                 player.setProcessState(ProcessState.RUNNING);
             });
             result = players;
+            playerRepository.saveAllAndFlush(players);
         }
         return result;
     }
