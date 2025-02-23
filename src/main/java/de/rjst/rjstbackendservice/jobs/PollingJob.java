@@ -18,7 +18,7 @@ public class PollingJob {
     private final PlayerSupplier playerSupplier;
     private final PlayerConsumer playerConsumer;
 
-    @Scheduled(fixedDelay = 250L, timeUnit = TimeUnit.MILLISECONDS)
+    @Scheduled(fixedDelay = 8L, timeUnit = TimeUnit.HOURS)
     public void poll() {
         final var players = playerSupplier.get();
         if (players != null && !players.isEmpty()) {
