@@ -18,11 +18,11 @@ public class PollingJob {
     private final PlayerSupplier playerSupplier;
     private final PlayerConsumer playerConsumer;
 
-    @Scheduled(fixedDelay = 250L, timeUnit = TimeUnit.MILLISECONDS)
+    @Scheduled(fixedDelay = 8L, timeUnit = TimeUnit.HOURS)
     public void poll() {
         final var players = playerSupplier.get();
-        try (final ExecutorService executorService = Executors.newFixedThreadPool(10)) {
-            if (players != null) {
+        if (players != null) {
+            try (final ExecutorService executorService = Executors.newFixedThreadPool(10)) {
                 for (final Player player : players) {
                     executorService.submit(() -> playerConsumer.accept(player));
                 }
