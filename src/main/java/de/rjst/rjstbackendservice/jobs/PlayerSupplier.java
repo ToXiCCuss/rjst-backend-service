@@ -22,7 +22,7 @@ public class PlayerSupplier {
     @AdvisoryLock(appId = 1)
     public List<Player> get() {
         List<Player> result = new ArrayList<>();
-        final var players = playerRepository.findByProcessState(ProcessState.WAITING, PageRequest.of(0, 25));
+        final var players = playerRepository.findByProcessState(ProcessState.WAITING, PageRequest.of(0, 100));
         if (!players.isEmpty()) {
             log.info("Found {} players to process", players.size());
             players.stream().forEach(player -> {
