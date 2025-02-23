@@ -6,6 +6,7 @@ import de.rjst.rjstbackendservice.database.ProcessState;
 import de.rjst.rjstbackendservice.aop.advisorylock.AdvisoryLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class PlayerSupplier {
     @AdvisoryLock(appId = 1)
     public List<Player> get() {
         List<Player> result = new ArrayList<>();
-        final var players = playerRepository.findByProcessState(ProcessState.WAITING);
+        final var players = playerRepository.findByProcessState(ProcessState.WAITING, PageRequest.of(0, 25));
         if (!players.isEmpty()) {
             log.info("Found {} players to process", players.size());
             players.stream().forEach(player -> {
