@@ -21,7 +21,7 @@ public class PollingJob {
     @Scheduled(fixedDelay = 250L, timeUnit = TimeUnit.MILLISECONDS)
     public void poll() {
         final var players = playerSupplier.get();
-        if (players != null) {
+        if (players != null && !players.isEmpty()) {
             try (final ExecutorService executorService = Executors.newFixedThreadPool(10)) {
                 for (final Player player : players) {
                     executorService.submit(() -> playerConsumer.accept(player));
