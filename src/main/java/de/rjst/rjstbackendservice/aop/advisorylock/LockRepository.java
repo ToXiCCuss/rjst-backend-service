@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LockRepository {
 
-    private static final String LOCK_QUERY = "SELECT pg_try_advisory_xact_lock(:appId, :lockId)";
+    private static final String LOCK_QUERY = "select pg_try_advisory_xact_lock(:appId, :lockId)";
     private static final String APP_ID = "appId";
     private static final String LOCK_ID = "lockId";
 

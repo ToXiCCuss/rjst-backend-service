@@ -1,8 +1,10 @@
 spring:
+  application:
+    name: rjst-backend-service
   datasource:
     url: jdbc:postgresql://vpn.rjst.de:5432/backend
     username: postgres
-    password: 70pNJTkISyghR9puwGKLjt2XGl38tv
+    password: 6DBXDMf8zVcxnJrSJMDLPoua4mGahfkEx6FeRfI4
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 0
@@ -14,14 +16,6 @@ spring:
     default-schema: public
     enabled: true
     change-log: classpath:changelog.yaml
-  kafka:
-    bootstrap-servers: kafka.kafka.svc.cluster.local:9092
-    consumer:
-      group-id: test
-  data:
-    redis:
-      host: localhost
-      port: 6379
 security:
   ldap:
     url: ldap://vpn.rjst.de:389
@@ -39,9 +33,3 @@ management:
   endpoint:
     health:
       show-details: always
-  tracing:
-    sampling:
-      probability: 1.0
-  otlp:
-    tracing:
-      endpoint: "http://jaeger-collector.istio-system.svc.cluster.local:4318/v1/traces"

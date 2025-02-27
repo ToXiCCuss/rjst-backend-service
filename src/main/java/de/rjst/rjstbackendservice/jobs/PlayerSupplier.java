@@ -25,11 +25,8 @@ public class PlayerSupplier {
         final var players = playerRepository.findByProcessState(ProcessState.WAITING, PageRequest.of(0, 100));
         if (!players.isEmpty()) {
             log.info("Found {} players to process", players.size());
-            players.stream().forEach(player -> {
-                player.setProcessState(ProcessState.RUNNING);
-            });
-            result = players;
-            playerRepository.saveAllAndFlush(players);
+            players.stream().forEach(player -> player.setProcessState(ProcessState.RUNNING));
+            result = playerRepository.saveAllAndFlush(players);
         }
         return result;
     }
