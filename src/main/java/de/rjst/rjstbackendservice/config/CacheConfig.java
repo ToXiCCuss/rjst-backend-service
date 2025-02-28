@@ -20,6 +20,7 @@ import static de.rjst.rjstbackendservice.cache.CacheNames.LDAP_GROUPS;
 public class CacheConfig {
 
     private static final long DURATION = 8L;
+    private static final long MAXIMUM_SIZE = 50L;
 
     @Bean
     public CacheManager cacheManager(final List<Cache> caches) {
@@ -33,6 +34,8 @@ public class CacheConfig {
         return new CaffeineCache(LDAP_GROUPS,
                 Caffeine.newBuilder()
                         .expireAfterAccess(DURATION, TimeUnit.HOURS)
+                        .maximumSize(MAXIMUM_SIZE)
+                        .recordStats()
                         .build());
     }
  }
