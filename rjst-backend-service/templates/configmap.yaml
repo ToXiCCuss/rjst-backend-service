@@ -7,10 +7,6 @@ metadata:
 data:
   application.yaml: |
     spring:
-      data:
-        redis:
-          host: vpn.rjst.de
-          port: 6379
       datasource:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
         hikari:
@@ -23,10 +19,6 @@ data:
         default-schema: public
         enabled: true
         change-log: classpath:changelog.yaml
-      kafka:
-        bootstrap-servers: kafka.kafka.svc.cluster.local:9092
-        consumer:
-          group-id: test
     security:
       ldap:
         url: ldap://vpn.rjst.de:389
@@ -35,10 +27,3 @@ data:
     springdoc:
       swagger-ui:
         use-root-path: true
-    management:
-      tracing:
-        sampling:
-          probability: 1.0
-      otlp:
-        tracing:
-          endpoint: "http://jaeger-collector.istio-system.svc.cluster.local:4318/v1/traces"
