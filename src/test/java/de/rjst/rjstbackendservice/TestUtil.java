@@ -1,7 +1,5 @@
 package de.rjst.rjstbackendservice;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.Base64;
 
 
