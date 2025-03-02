@@ -19,5 +19,8 @@
       "automerge": true
     }
   ],
-  "ignoreTests": true
+  "ignoreTests": true,
+  "ignorePaths": [
+    "**/Dockerfile"
+  ]
 }
