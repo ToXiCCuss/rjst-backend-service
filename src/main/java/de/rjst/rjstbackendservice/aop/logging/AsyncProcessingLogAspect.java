@@ -37,7 +37,8 @@ public class AsyncProcessingLogAspect {
         final Object[] args = joinPoint.getArgs();
         final EvaluationContext context = new StandardEvaluationContext();
         final String[] parameterNames = signature.getParameterNames();
-        for (int i = 0; i < parameterNames.length; i++) {
+        final int length = parameterNames.length;
+        for (int i = 0; i < length; i++) {
             context.setVariable(parameterNames[i], args[i]);
         }
         final Expression expression = parser.parseExpression(asyncProcessingLog.value());
