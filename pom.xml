@@ -234,10 +234,6 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
                         <configuration>
                             <includes>
                                 <include>**/*IT.java</include>
@@ -247,6 +243,10 @@
                                 <DOCKER_HOST>tcp://vpn.rjst.de:2375</DOCKER_HOST>
                             </environmentVariables>
                         </configuration>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
