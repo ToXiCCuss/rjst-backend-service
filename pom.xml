@@ -239,6 +239,9 @@
                                 <include>**/*IT.java</include>
                             </includes>
                             <testFailureIgnore>true</testFailureIgnore>
+                            <environmentVariables>
+                                <DOCKER_HOST>tcp://vpn.rjst.de:2375</DOCKER_HOST>
+                            </environmentVariables>
                         </configuration>
                         <goals>
                             <goal>integration-test</goal>
