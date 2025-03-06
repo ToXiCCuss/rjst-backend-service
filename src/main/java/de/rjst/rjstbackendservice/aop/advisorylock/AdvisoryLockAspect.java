@@ -15,7 +15,7 @@ public class AdvisoryLockAspect {
 
     private final LockRepository lockRepository;
 
-    @Around("@annotation(advisoryLock)")
+    @Around("execution(public * * (..)) && @annotation(advisoryLock)")
     public Object around(final ProceedingJoinPoint joinPoint, final AdvisoryLock advisoryLock) throws Throwable {
         Object result = null;
 

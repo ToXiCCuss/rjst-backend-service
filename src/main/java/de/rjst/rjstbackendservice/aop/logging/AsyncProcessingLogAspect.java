@@ -19,7 +19,7 @@ public class AsyncProcessingLogAspect {
 
     private final ExpressionParser parser = new SpelExpressionParser();
 
-    @Around("@annotation(asyncProcessingLog)")
+    @Around("execution(public * * (..)) && @annotation(asyncProcessingLog)")
     public Object around(final ProceedingJoinPoint joinPoint, final AsyncProcessingLog asyncProcessingLog) throws Throwable {
         final var key = asyncProcessingLog.key();
         final var value = getValue(joinPoint, asyncProcessingLog);

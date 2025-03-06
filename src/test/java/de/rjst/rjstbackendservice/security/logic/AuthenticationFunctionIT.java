@@ -18,7 +18,7 @@ class AuthenticationFunctionIT {
 
     @Test
     void applyTrue() {
-        final Boolean result = underTest.apply("cn=rstenzhorn,ou=team,ou=users,dc=rjst,dc=de", "123");
+        final Boolean result = underTest.apply("rstenzhorn", "123");
         assertThat(result).isTrue();
     }
 
