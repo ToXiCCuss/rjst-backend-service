@@ -1,0 +1,27 @@
+{
+  "ip": "1.1.1.1",
+  "isp": {
+    "asn": "AS9063",
+    "org": "VSE NET GmbH",
+    "isp": "RWE Fibernet via VSENET/ARTELIS"
+  },
+  "location": {
+    "country": "Germany",
+    "country_code": "DE",
+    "city": "Essen (Stadtbezirke I)",
+    "state": "North Rhine-Westphalia",
+    "zipcode": "45128",
+    "latitude": 51.46315159981334,
+    "longitude": 6.999862009128139,
+    "timezone": "Europe/Berlin",
+    "localtime": "2025-03-06T21:44:33"
+  },
+  "risk": {
+    "is_mobile": false,
+    "is_vpn": false,
+    "is_tor": false,
+    "is_proxy": false,
+    "is_datacenter": false,
+    "risk_score": 0
+  }
+}

@@ -16,6 +16,12 @@ spring:
     default-schema: public
     enabled: true
     change-log: classpath:changelog.yaml
+  cloud:
+    openfeign:
+      client:
+        config:
+          ipQuery:
+            url: https://api.ipquery.io
 security:
   ldap:
     url: ldap://vpn.rjst.de:389

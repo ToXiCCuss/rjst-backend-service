@@ -1,6 +1,9 @@
 package de.rjst.rjstbackendservice.controller;
 
-import de.rjst.rjstbackendservice.TestContainerConfig;
+import de.rjst.rjstbackendservice.adapter.IpQueryResponse;
+import de.rjst.rjstbackendservice.adapter.Isp;
+import de.rjst.rjstbackendservice.container.IpServiceMock;
+import de.rjst.rjstbackendservice.container.TestContainerConfig;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import io.restassured.RestAssured;
@@ -26,7 +29,8 @@ class PrivateControllerContainerIT {
     @LocalServerPort
     private Integer port;
 
-    private static final String PLAYER_ENDPOINT = "/private/players";
+    private static final String PLAYERS = "/private/players";
+    private static final String IP_SEARCH = "/private/ipsearch";
 
     @Autowired
     private PlayerRepository playerRepository;
@@ -49,7 +53,7 @@ class PrivateControllerContainerIT {
                 .header("Authorization", "Basic " + ANY_USER_LOGIN)
                 .log().all()
                 .when()
-                .get(PLAYER_ENDPOINT + "/" + player.getId())
+                .get(PLAYERS + "/" + player.getId())
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -57,6 +61,28 @@ class PrivateControllerContainerIT {
 
         assertThat(result.getBalance()).isEqualTo(BigInteger.TEN);
         assertThat(result.getId()).isEqualTo(player.getId());
+    }
+
+    @Test
+    void getIP() {
+        final var ip = "1.1.1.1";
+        IpServiceMock.getIpQueryResponse(ip);
+
+        final IpQueryResponse result = given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Basic " + ANY_USER_LOGIN)
+                .log().all()
+                .when()
+                .param("ip", ip)
+                .get(IP_SEARCH)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract().body().as(IpQueryResponse.class);
+
+        var isp = result.getIsp();
+        assertThat(result.getIp()).isEqualTo(ip);
+        assertThat(isp.getOrg()).isEqualTo("VSE NET GmbH");
     }
 
 }
