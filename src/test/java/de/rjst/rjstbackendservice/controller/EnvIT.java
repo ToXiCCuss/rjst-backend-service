@@ -6,9 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class EnvIT {
 
-    static {
-        System.setProperty("DOCKER_HOST", "tcp://vpn.rjst.de:2375");
-    }
 
     @Test
     void contextLoads() {
