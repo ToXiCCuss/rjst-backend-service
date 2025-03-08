@@ -1,2 +1,2 @@
-@Library('cicd-config') _
+@Library('cicd-config@test') _
 springHelm()
