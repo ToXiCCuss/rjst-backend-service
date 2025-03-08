@@ -11,9 +11,9 @@ import static de.rjst.rjstbackendservice.container.TestContainerConfig.mockServe
 public class ContainerInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
-    public void initialize(ConfigurableApplicationContext applicationContext) {
+    public final void initialize(final ConfigurableApplicationContext applicationContext) {
         mockServer.start();
-        String endpoint = mockServer.getEndpoint();
+        final var endpoint = mockServer.getEndpoint();
         TestPropertyValues.of(
                 "spring.cloud.openfeign.client.config.ipQuery.url=" + endpoint
         ).applyTo(applicationContext);
