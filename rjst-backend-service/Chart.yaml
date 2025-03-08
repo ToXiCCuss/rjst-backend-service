@@ -7,5 +7,5 @@ version: 0.1.0
 appVersion: "0.0.0"
 dependencies:
   - name: spring-boot
-    version: 0.1.0
+    version: 1.0.0
     repository: oci://harbor.vpn.rjst.de/dev/chart
