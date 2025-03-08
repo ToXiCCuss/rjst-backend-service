@@ -5,6 +5,8 @@ import org.springframework.boot.testcontainers.context.ImportTestcontainers;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Map;
+
 import static de.rjst.rjstbackendservice.container.TestContainerConfig.mockServer;
 
 @ImportTestcontainers(TestContainerConfig.class)
@@ -15,7 +17,7 @@ public class ContainerInitializer implements ApplicationContextInitializer<Confi
         mockServer.start();
         final var endpoint = mockServer.getEndpoint();
         TestPropertyValues.of(
-                "spring.cloud.openfeign.client.config.ipQuery.url=" + endpoint
+                Map.of("spring.cloud.openfeign.client.config.ipQuery.url", endpoint)
         ).applyTo(applicationContext);
     }
 
