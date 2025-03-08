@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigInteger;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import static de.rjst.rjstbackendservice.TestUtil.ANY_USER_LOGIN;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = ContainerInitializer.class)
@@ -49,7 +51,7 @@ class PrivateControllerContainerIT {
 
         final Player result = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Basic " + ANY_USER_LOGIN)
+                .header(AUTHORIZATION, ANY_USER_LOGIN)
                 .log().all()
                 .when()
                 .get(PLAYERS + "/" + player.getId())
@@ -69,7 +71,7 @@ class PrivateControllerContainerIT {
 
         final IpQueryResponse result = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Basic " + ANY_USER_LOGIN)
+                .header(AUTHORIZATION, ANY_USER_LOGIN)
                 .log().all()
                 .when()
                 .param("ip", ip)

@@ -10,5 +10,11 @@ public class TestUtil {
     public static final Integer ANY_INTEGER = 1;
 
 
-    public static String ANY_USER_LOGIN = Base64.getEncoder().encodeToString("rstenzhorn:123".getBytes());
+    public static String ANY_USER_LOGIN = getAuthHeader("rstenzhorn", "123");
+
+    public static String getAuthHeader(final String username, final String password) {
+        final var value = String.format("%s:%s", username,password);
+        final var encoded = Base64.getEncoder().encodeToString(value.getBytes());
+        return String.format("Basic %s", encoded);
+    }
 }
