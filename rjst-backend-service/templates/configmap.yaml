@@ -24,6 +24,12 @@ data:
         url: ldap://vpn.rjst.de:389
         username: "trjstbackend"
         password: "123"
+    cloud:
+      openfeign:
+        client:
+          config:
+            ipQuery:
+              url: https://api.ipquery.io
     springdoc:
       swagger-ui:
         use-root-path: true
