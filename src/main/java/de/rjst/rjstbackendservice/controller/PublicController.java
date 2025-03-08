@@ -19,7 +19,7 @@ public class PublicController {
         return new ResponseEntity<>("Hallo", HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/v2")
     public ResponseEntity<String> getPublic2() {
         return new ResponseEntity<>("Hallo2", HttpStatus.OK);
     }
