@@ -5,3 +5,4 @@ spring-boot:
     url: "rjst-backend-service.rjst.de"
   serviceMonitor:
     enabled: true
+  replicaCount: 1
