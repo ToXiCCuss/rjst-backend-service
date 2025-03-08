@@ -12,7 +12,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static de.rjst.rjstbackendservice.container.ContainerImages.MOCK_SERVER;
 import static de.rjst.rjstbackendservice.container.ContainerImages.POSTGRESQL;
 
-@Testcontainers
 public interface TestContainerConfig {
 
     @Container
@@ -27,10 +26,5 @@ public interface TestContainerConfig {
                 mockServer.getHost(),
                 mockServer.getServerPort()
         );
-    }
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.cloud.openfeign.client.config.ipQuery.url", mockServer::getEndpoint);
     }
 }

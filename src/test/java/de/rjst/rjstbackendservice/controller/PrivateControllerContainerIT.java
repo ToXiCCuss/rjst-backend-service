@@ -1,9 +1,8 @@
 package de.rjst.rjstbackendservice.controller;
 
 import de.rjst.rjstbackendservice.adapter.IpQueryResponse;
-import de.rjst.rjstbackendservice.adapter.Isp;
 import de.rjst.rjstbackendservice.container.IpServiceMock;
-import de.rjst.rjstbackendservice.container.TestContainerConfig;
+import de.rjst.rjstbackendservice.container.ContainerInitializer;
 import de.rjst.rjstbackendservice.database.Player;
 import de.rjst.rjstbackendservice.database.PlayerRepository;
 import io.restassured.RestAssured;
@@ -13,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.boot.testcontainers.context.ImportTestcontainers;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -22,8 +21,8 @@ import static de.rjst.rjstbackendservice.TestUtil.ANY_USER_LOGIN;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ImportTestcontainers(TestContainerConfig.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = ContainerInitializer.class)
 class PrivateControllerContainerIT {
 
     @LocalServerPort
