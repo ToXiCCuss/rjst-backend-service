@@ -25,6 +25,9 @@ data:
             config:
               ipQuery:
                 url: https://api.ipquery.io
+      threads:
+        virtual:
+          enabled: true
     security:
       ldap:
         url: ldap://vpn.rjst.de:389
