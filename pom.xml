@@ -12,7 +12,7 @@
 
     <groupId>de.rjst</groupId>
     <artifactId>rjst-backend-service</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
 
     <name>rjst-backend-service</name>
     <description>rjst-backend-service</description>
