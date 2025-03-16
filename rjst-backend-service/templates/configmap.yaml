@@ -28,6 +28,9 @@ data:
                 url: https://api.ipquery.io
               finance:
                 url: https://finance-batch.vpn.rjst.de
+      threads:
+        virtual:
+          enabled: true
     security:
       ldap:
         url: ldap://vpn.rjst.de:389

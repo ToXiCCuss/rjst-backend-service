@@ -238,18 +238,6 @@
                         </configuration>
                     </execution>
                 </executions>
-
-                <configuration>
-                    <image>
-                        <verboseLogging> true </verboseLogging>
-                        <env>
-                            <BP_DEBUG>=true</BP_DEBUG>
-                        </env>
-                        <bindings>
-                            <binding>${basedir}/ca-certificates/binding:/bindings/ca-certificates</binding>
-                        </bindings>
-                    </image>
-                </configuration>
             </plugin>
 
             <plugin>

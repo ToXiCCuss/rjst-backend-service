@@ -22,8 +22,6 @@ public class PrivateController {
     private final PlayerService playerService;
     private final TestDataGeneratorConsumer testDataGeneratorConsumer;
     private final IpQueryService ipQueryService;
-    private final FinanceBatchService batchService;
-
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("players")
@@ -35,13 +33,6 @@ public class PrivateController {
     @GetMapping("ipsearch")
     public ResponseEntity<IpQueryResponse> getIpInfos(@RequestParam final String ip) {
         return new ResponseEntity<>(ipQueryService.getIpQueryResponse(ip), HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("triggerBatch")
-    public ResponseEntity<Void> triggerBatch() {
-        batchService.triggerComdirectJob();
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
