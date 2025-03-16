@@ -29,6 +29,10 @@ spring:
     init:
       mode: never
 
+management:
+  server:
+    port: 80
+
 springdoc:
   swagger-ui:
     use-root-path: true
