@@ -19,12 +19,15 @@ data:
         default-schema: public
         enabled: true
         change-log: classpath:changelog.yaml
+        show-summary: off
       cloud:
         openfeign:
           client:
             config:
               ipQuery:
                 url: https://api.ipquery.io
+              finance:
+                url: https://finance-batch.vpn.rjst.de
       threads:
         virtual:
           enabled: true

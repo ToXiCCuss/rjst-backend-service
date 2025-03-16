@@ -1,5 +1,6 @@
 package de.rjst.rjstbackendservice.controller;
 
+import de.rjst.rjstbackendservice.adapter.FinanceBatchService;
 import de.rjst.rjstbackendservice.adapter.IpQueryResponse;
 import de.rjst.rjstbackendservice.adapter.IpQueryService;
 import de.rjst.rjstbackendservice.database.Player;
@@ -21,6 +22,7 @@ public class PrivateController {
     private final PlayerService playerService;
     private final TestDataGeneratorConsumer testDataGeneratorConsumer;
     private final IpQueryService ipQueryService;
+    private final FinanceBatchService batchService;
 
 
     @PreAuthorize("hasAuthority('USER')")
@@ -33,6 +35,13 @@ public class PrivateController {
     @GetMapping("ipsearch")
     public ResponseEntity<IpQueryResponse> getIpInfos(@RequestParam final String ip) {
         return new ResponseEntity<>(ipQueryService.getIpQueryResponse(ip), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("triggerBatch")
+    public ResponseEntity<Void> triggerBatch() {
+        batchService.triggerComdirectJob();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER')")
