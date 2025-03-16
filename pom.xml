@@ -248,6 +248,7 @@
                         <env>
                             <BP_SPRING_AOT_ENABLED>true</BP_SPRING_AOT_ENABLED>
                             <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
+                            <BP_MAVEN_BUILD_ARGUMENTS>-Dmaven.test.skip=true package</BP_MAVEN_BUILD_ARGUMENTS>
                         </env>
                     </image>
                 </configuration>
