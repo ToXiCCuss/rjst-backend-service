@@ -208,7 +208,7 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-micrometer</artifactId>
-            <version>13.4</version>
+            <version>13.5</version>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>
