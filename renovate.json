@@ -3,8 +3,8 @@
   "extends": [
     "config:best-practices"
   ],
-  "lockFileMaintenance": {
-    "enabled": true
+  "helmv3": {
+    "enabled": false
   },
   "automerge": true,
   "automergeType": "pr",
