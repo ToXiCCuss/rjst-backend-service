@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: rjst-backend-service
+  datasource:
+    url: jdbc:postgresql://vpn.rjst.de:5432/backend
+    username: postgres
+    password: 6DBXDMf8zVcxnJrSJMDLPoua4mGahfkEx6FeRfI4
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    default-schema: public
+    enabled: true
+    change-log: classpath:changelog.yaml
+    show-summary: off
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+          ipQuery:
+            url: https://api.ipquery.io
+          finance:
+            url: https://finance-batch.vpn.rjst.de
+  threads:
+    virtual:
+      enabled: true
+security:
+  ldap:
+    url: ldap://vpn.rjst.de:389
+    username: "trjstbackend"
+    password: "123"
+springdoc:
+  swagger-ui:
+    use-root-path: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level:
+    de.rjst.bes.adapter: DEBUG
