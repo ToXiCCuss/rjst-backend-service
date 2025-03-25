@@ -22,45 +22,45 @@ public class PrivateController {
     private final TestDataGeneratorConsumer testDataGeneratorConsumer;
     private final IpQueryService ipQueryService;
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("players")
     public ResponseEntity<List<Player>> getPlayers() {
         return new ResponseEntity<>(playerService.getPlayers(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("ipsearch")
     public ResponseEntity<IpQueryResponse> getIpInfos(@RequestParam final String ip) {
         return new ResponseEntity<>(ipQueryService.getIpQueryResponse(ip), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("players/{id}")
     public ResponseEntity<Player> getPlayer(@PathVariable final Long id) {
         return new ResponseEntity<>(playerService.getPlayerById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("players")
     public ResponseEntity<Player> postPlayer(@RequestBody final Player player) {
         return new ResponseEntity<>(playerService.postPlayer(player), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("players")
     public ResponseEntity<Player> putPlayer(@RequestBody final Player player) {
         return new ResponseEntity<>(playerService.updatePlayer(player), HttpStatus.OK);
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("players/{id}")
     public ResponseEntity<Boolean> deletePlayer(@PathVariable final Long id) {
         return ResponseEntity.ok(playerService.deletePlayer(id));
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("players/testdata")
     public ResponseEntity<Void> generateTestData(@RequestParam final Long amount) {
         testDataGeneratorConsumer.accept(amount);

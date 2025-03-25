@@ -1,4 +1,4 @@
-package de.rjst.bes.config;
+package de.rjst.bes.cache;
 
 
 import com.github.benmanes.caffeine.cache.Caffeine;

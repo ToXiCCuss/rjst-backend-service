@@ -30,11 +30,6 @@ spring:
   threads:
     virtual:
       enabled: true
-security:
-  ldap:
-    url: ldap://vpn.rjst.de:389
-    username: "trjstbackend"
-    password: "123"
 springdoc:
   swagger-ui:
     use-root-path: true

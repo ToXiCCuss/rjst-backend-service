@@ -1,4 +1,4 @@
-package de.rjst.bes.security.config;
+package de.rjst.bes.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package de.rjst.bes.config;
+package de.rjst.bes.security;
 
 
 import org.springframework.context.annotation.Configuration;

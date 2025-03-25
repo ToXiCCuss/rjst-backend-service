@@ -8,6 +8,18 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 0
+  security:
+    oauth2:
+      client:
+        registration:
+          authentik:
+            clientId: uPEuAyJ6uKRfyXBbqA9TUMzw8doqU5Yd1DBxPFBJ
+            clientSecret: HMgFRZgfNFxEonxIAKRn5Egn47J7eOIPFQBAv2U2Efkp9ExAShlz12HBPFC6EqWXX038y5qTTSVcLfd6yuz5f1uEkrF6yJWtFA0J4H1JGwkkUFYPsyWPdqCvuvkP0xLl
+            scope: openid,profile,email,roles
+            authorizationGrantType: authorization_code
+        provider:
+          authentik:
+            issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
   jpa:
     hibernate:
       ddl-auto: none
@@ -28,11 +40,6 @@ spring:
   threads:
     virtual:
       enabled: true
-security:
-  ldap:
-    url: ldap://vpn.rjst.de:389
-    username: "trjstbackend"
-    password: "123"
 springdoc:
   swagger-ui:
     use-root-path: true

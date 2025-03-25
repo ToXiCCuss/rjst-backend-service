@@ -17,7 +17,7 @@ public class BatchController {
 
     private final FinanceBatchService financeBatchService;
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("triggerBatch")
     public ResponseEntity<Void> triggerBatch() {
         financeBatchService.triggerComdirectJob();
