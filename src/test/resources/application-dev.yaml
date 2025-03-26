@@ -10,6 +10,9 @@ spring:
       minimum-idle: 0
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
       client:
         registration:
           authentik:
