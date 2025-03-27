@@ -12,17 +12,17 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
+          issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service-local/
       client:
         registration:
           authentik:
-            clientId: uPEuAyJ6uKRfyXBbqA9TUMzw8doqU5Yd1DBxPFBJ
-            clientSecret: HMgFRZgfNFxEonxIAKRn5Egn47J7eOIPFQBAv2U2Efkp9ExAShlz12HBPFC6EqWXX038y5qTTSVcLfd6yuz5f1uEkrF6yJWtFA0J4H1JGwkkUFYPsyWPdqCvuvkP0xLl
+            clientId: rKzUTf5uC6hIxOIxemB1okFApa0J9RzLKYDqw1cZ
+            clientSecret: ALA1Y5KOvWlpxhaEOXbniGlAVCGoUeU2DRYbSKKNuWrzEF1BVboR8qo1CUmdVEqtaKw50vqupKAtUlcFzMMwCnaYPch95j7qQg0LlZSPoTTwIPkU87PFONu7AN9tHp51
             scope: openid,profile,email,roles
             authorizationGrantType: authorization_code
         provider:
           authentik:
-            issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
+            issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service-local/
   jpa:
     hibernate:
       ddl-auto: none
@@ -55,6 +55,3 @@ management:
   endpoint:
     health:
       show-details: always
-logging:
-  level:
-    org.springframework.security: TRACE

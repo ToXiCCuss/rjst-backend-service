@@ -5,6 +5,7 @@ import de.rjst.bes.adapter.IpQueryService;
 import de.rjst.bes.database.Player;
 import de.rjst.bes.logic.PlayerService;
 import de.rjst.bes.logic.TestDataGeneratorConsumer;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "BearerAuth")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("private")

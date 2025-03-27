@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Configuration
@@ -45,12 +46,16 @@ public class SpringSecurityConfig {
 
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        final var grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         grantedAuthoritiesConverter.setAuthoritiesClaimName(ROLES);
         grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        final var jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
+            Set<GrantedAuthority> authorities = new HashSet<>(jwt.getClaimAsStringList(ROLES).stream()
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
+                    .collect(Collectors.toSet()));
+            return authorities;
+        });
         return jwtAuthenticationConverter;
     }
 
@@ -60,7 +65,7 @@ public class SpringSecurityConfig {
             final Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
 
             authorities.forEach(authority -> {
-                if (authority instanceof OidcUserAuthority oidcUserAuthority) {
+                if (authority instanceof final OidcUserAuthority oidcUserAuthority) {
                     final OidcUserInfo userInfo = oidcUserAuthority.getUserInfo();
                     final Map<String, Object> claims = userInfo.getClaims();
                     if (claims.containsKey(ROLES)) {
