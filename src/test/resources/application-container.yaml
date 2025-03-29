@@ -6,8 +6,6 @@ spring:
     username: postgres
     password: 6DBXDMf8zVcxnJrSJMDLPoua4mGahfkEx6FeRfI4
     driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 0
   jpa:
     hibernate:
       ddl-auto: none
@@ -45,3 +43,6 @@ management:
 logging:
   level:
     de.rjst.bes.adapter: DEBUG
+    org.springframework.security: TRACE
+security:
+  enabled: false

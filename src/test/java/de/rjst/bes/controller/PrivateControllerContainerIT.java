@@ -1,31 +1,36 @@
 package de.rjst.bes.controller;
 
 import de.rjst.bes.adapter.IpQueryResponse;
+import de.rjst.bes.container.ContainerTest;
 import de.rjst.bes.container.IpServiceMock;
-import de.rjst.bes.container.JUnitContainersConfiguration;
 import de.rjst.bes.database.Player;
 import de.rjst.bes.database.PlayerRepository;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.http.HttpStatus;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.restassured.RestDocumentationFilter;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-import static de.rjst.bes.TestUtil.ANY_USER_LOGIN;
+import static de.rjst.bes.container.RestDocsUtil.getDocument;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.modifyUris;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
+import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.documentationConfiguration;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Import(JUnitContainersConfiguration.class)
-@ActiveProfiles("container")
+@ContainerTest
 class PrivateControllerContainerIT {
 
     @LocalServerPort
@@ -37,9 +42,21 @@ class PrivateControllerContainerIT {
     @Autowired
     private PlayerRepository playerRepository;
 
+    private RequestSpecification requestSpecification;
+    private ResponseSpecification responseSpecification;
+
     @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
+    void setUp(final RestDocumentationContextProvider restDocumentation) {
+        final var requestSpecBuilder = new RequestSpecBuilder();
+        requestSpecBuilder.setPort(port);
+        requestSpecBuilder.addFilter(documentationConfiguration(restDocumentation));
+        requestSpecBuilder.log(LogDetail.ALL);
+        requestSpecification = requestSpecBuilder.build();
+
+        final var responseSpecBuilder = new ResponseSpecBuilder();
+        responseSpecBuilder.log(LogDetail.ALL);
+        responseSpecification = responseSpecBuilder.build();
+
     }
 
     @Test
@@ -51,19 +68,19 @@ class PrivateControllerContainerIT {
         player = playerRepository.saveAndFlush(player);
 
         final Player result = given()
-                .contentType(ContentType.JSON)
-                .header(AUTHORIZATION, ANY_USER_LOGIN)
-                .log().all()
-                .when()
+                .spec(requestSpecification)
+                .filter(getDocument())
                 .get(PLAYERS + "/" + player.getId())
                 .then()
-                .log().all()
-                .statusCode(200)
+                .spec(responseSpecification)
+                .statusCode(HttpStatus.OK.value())
                 .extract().body().as(Player.class);
 
         assertThat(result.getBalance()).isEqualTo(BigInteger.TEN);
         assertThat(result.getId()).isEqualTo(player.getId());
     }
+
+
 
     @Test
     void getIP() {
@@ -71,18 +88,17 @@ class PrivateControllerContainerIT {
         IpServiceMock.getIpQueryResponse(ip);
 
         final IpQueryResponse result = given()
-                .contentType(ContentType.JSON)
-                .header(AUTHORIZATION, ANY_USER_LOGIN)
-                .log().all()
+                .spec(requestSpecification)
+                .filter(getDocument())
                 .when()
                 .param("ip", ip)
                 .get(IP_SEARCH)
                 .then()
-                .log().all()
-                .statusCode(200)
+                .spec(responseSpecification)
+                .statusCode(HttpStatus.OK.value())
                 .extract().body().as(IpQueryResponse.class);
 
-        var isp = result.getIsp();
+        final var isp = result.getIsp();
         assertThat(result.getIp()).isEqualTo(ip);
         assertThat(isp.getOrg()).isEqualTo("VSE NET GmbH");
     }
