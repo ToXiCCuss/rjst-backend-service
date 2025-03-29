@@ -9,14 +9,17 @@ import static org.springframework.restdocs.restassured.RestAssuredRestDocumentat
 
 public class RestDocsUtil {
 
+    private static final String HTTPS = "https";
+    private static final String DEV_URL = "rjst-backend-service.rjst.de";
+
     @NonNull
     public static  RestDocumentationFilter getDocument() {
         final var stackTrace = Thread.currentThread().getStackTrace();
         final var callerMethodName = stackTrace[2].getMethodName();
         return document(callerMethodName,
                 preprocessRequest(modifyUris()
-                        .scheme("https")
-                        .host("rjst-backend-service.rjst.de")
+                        .scheme(HTTPS)
+                        .host(DEV_URL)
                         .removePort()));
     }
 
