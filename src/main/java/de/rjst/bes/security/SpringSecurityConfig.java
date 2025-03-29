@@ -57,11 +57,8 @@ public class SpringSecurityConfig {
         grantedAuthoritiesConverter.setAuthoritiesClaimName(ROLES);
         grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
         final var jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
-            Set<GrantedAuthority> authorities = jwt.getClaimAsStringList(ROLES).stream()
-                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())).collect(Collectors.toSet());
-            return authorities;
-        });
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> jwt.getClaimAsStringList(ROLES).stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())).collect(Collectors.toSet()));
         return jwtAuthenticationConverter;
     }
 
