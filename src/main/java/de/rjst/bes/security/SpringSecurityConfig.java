@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig {
 
     private static final String CLAIM = "roles";
