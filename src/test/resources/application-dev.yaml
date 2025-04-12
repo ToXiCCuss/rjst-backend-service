@@ -16,8 +16,8 @@ spring:
       client:
         registration:
           authentik:
-            clientId: rKzUTf5uC6hIxOIxemB1okFApa0J9RzLKYDqw1cZ
-            clientSecret: ALA1Y5KOvWlpxhaEOXbniGlAVCGoUeU2DRYbSKKNuWrzEF1BVboR8qo1CUmdVEqtaKw50vqupKAtUlcFzMMwCnaYPch95j7qQg0LlZSPoTTwIPkU87PFONu7AN9tHp51
+            clientId: k3xPpU872YeBa24OrT2pSxiC9aMjIgR83haR4e56
+            clientSecret: bHNVTbPQzXCJkQUQlUaZxHvosgl2HI5LCdHv96BSU4dCajKCVjowpx0dhtoTJqhSmdDQrkceMN3VvXe7fN35KBbVaYVyNMEmIw8lWW7n8xpAI1vNwQ8fT3CniaMSCTHu
             scope: openid,profile,email,roles
             authorizationGrantType: authorization_code
         provider:
