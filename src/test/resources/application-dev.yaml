@@ -16,8 +16,8 @@ spring:
       client:
         registration:
           authentik:
-            clientId: k3xPpU872YeBa24OrT2pSxiC9aMjIgR83haR4e56
-            clientSecret: bHNVTbPQzXCJkQUQlUaZxHvosgl2HI5LCdHv96BSU4dCajKCVjowpx0dhtoTJqhSmdDQrkceMN3VvXe7fN35KBbVaYVyNMEmIw8lWW7n8xpAI1vNwQ8fT3CniaMSCTHu
+            clientId: "k3xPpU872YeBa24OrT2pSxiC9aMjIgR83haR4e56"
+            clientSecret: "bHNVTbPQzXCJkQUQlUaZxHvosgl2HI5LCdHv96BSU4dCajKCVjowpx0dhtoTJqhSmdDQrkceMN3VvXe7fN35KBbVaYVyNMEmIw8lWW7n8xpAI1vNwQ8fT3CniaMSCTHu"
             scope: openid,profile,email,roles
             authorizationGrantType: authorization_code
         provider:
@@ -27,6 +27,7 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+    open-in-view: false
   liquibase:
     default-schema: public
     enabled: true
@@ -55,3 +56,9 @@ management:
   endpoint:
     health:
       show-details: always
+logging:
+  level:
+    org.springframework.security: TRACE
+
+security:
+  enabled: true
