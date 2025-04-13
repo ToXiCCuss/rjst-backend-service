@@ -47,3 +47,11 @@ data:
     springdoc:
       swagger-ui:
         use-root-path: true
+        oauth:
+          client-id: ${spring.security.oauth2.client.registration.authentik.client-id}
+          client-secret: ${spring.security.oauth2.client.registration.authentik.client-secret}
+          scopes:
+            - openid
+            - profile
+            - email
+            - roles
