@@ -27,4 +27,6 @@ public class SecurityProperties {
 
     private Boolean enabled = true;
 
+    private String authorizationUrl = "https://authentik.rjst.de/application/o/authorize/";
+    private String tokenUrl = "https://authentik.rjst.de/application/o/token/";
 }

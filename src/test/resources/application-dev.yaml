@@ -16,8 +16,8 @@ spring:
       client:
         registration:
           authentik:
-            clientId: "k3xPpU872YeBa24OrT2pSxiC9aMjIgR83haR4e56"
-            clientSecret: "bHNVTbPQzXCJkQUQlUaZxHvosgl2HI5LCdHv96BSU4dCajKCVjowpx0dhtoTJqhSmdDQrkceMN3VvXe7fN35KBbVaYVyNMEmIw8lWW7n8xpAI1vNwQ8fT3CniaMSCTHu"
+            clientId: "pqEw76drFTjLjJJiYNRd6m3hcs75wT4U48YdfJvS"
+            clientSecret: "Txq05lEantkaw7mFp6Le9UMOaYrIyHGg6DnYtXHxC74GuLM4oCulmWMSlJkFIdOrYEiawF8px4tlTPrP8spt8CvWieYdRuNerDXuhWvf1IGPBmhN83fESVApFjsetk7V"
             scope: openid,profile,email,roles
             authorizationGrantType: authorization_code
         provider:
@@ -47,6 +47,14 @@ spring:
 springdoc:
   swagger-ui:
     use-root-path: true
+    oauth:
+      client-id: ${spring.security.oauth2.client.registration.authentik.client-id}
+      client-secret: ${spring.security.oauth2.client.registration.authentik.client-secret}
+      scopes:
+        - openid
+        - profile
+        - email
+        - roles
 
 management:
   endpoints:
@@ -56,9 +64,7 @@ management:
   endpoint:
     health:
       show-details: always
-logging:
-  level:
-    org.springframework.security: TRACE
 
 security:
   enabled: true
+

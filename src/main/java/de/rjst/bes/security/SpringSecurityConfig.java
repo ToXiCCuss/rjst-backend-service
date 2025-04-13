@@ -50,9 +50,9 @@ public class SpringSecurityConfig {
                            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                    )
                    .csrf(AbstractHttpConfigurer::disable)
-                   .cors(Customizer.withDefaults())
+                   .cors(AbstractHttpConfigurer::disable)
                    .sessionManagement(session -> session
-                           .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                           .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
        } else {
               http.authorizeHttpRequests(authorize -> authorize
                             .anyRequest().permitAll()
@@ -85,7 +85,7 @@ public class SpringSecurityConfig {
                     final OidcUserInfo userInfo = oidcUserAuthority.getUserInfo();
                     final Map<String, Object> claims = userInfo.getClaims();
                     if (claims.containsKey(CLAIM)) {
-                        final List<String> groups = (List<String>) claims.get(CLAIM);
+                        final Iterable<String> groups = (List<String>) claims.get(CLAIM);
                         groups.forEach(group -> mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + group.toUpperCase())));
                     }
                 }

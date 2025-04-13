@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SecurityRequirement(name = "BearerAuth")
+@SecurityRequirement(name = "oauth2")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("private")
