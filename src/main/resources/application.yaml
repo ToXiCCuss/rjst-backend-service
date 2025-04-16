@@ -9,6 +9,7 @@ spring:
     hikari:
       minimum-idle: 0
       allow-pool-suspension: true
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -28,6 +29,19 @@ spring:
   sql:
     init:
       mode: never
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
+      client:
+        registration:
+          authentik:
+            scope: openid,profile,email,roles
+            authorizationGrantType: authorization_code
+        provider:
+          authentik:
+            issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service/
 
 management:
   server:
