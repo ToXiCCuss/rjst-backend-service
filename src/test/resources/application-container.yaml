@@ -1,6 +1,21 @@
 spring:
   application:
     name: rjst-backend-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service-local/
+      client:
+        registration:
+          authentik:
+            clientId: "pqEw76drFTjLjJJiYNRd6m3hcs75wT4U48YdfJvS"
+            clientSecret: "Txq05lEantkaw7mFp6Le9UMOaYrIyHGg6DnYtXHxC74GuLM4oCulmWMSlJkFIdOrYEiawF8px4tlTPrP8spt8CvWieYdRuNerDXuhWvf1IGPBmhN83fESVApFjsetk7V"
+            scope: openid,profile,email,roles
+            authorizationGrantType: authorization_code
+        provider:
+          authentik:
+            issuer-uri: https://authentik.rjst.de/application/o/rjst-backend-service-local/
   datasource:
     url: jdbc:postgresql://vpn.rjst.de:5432/backend
     username: postgres
