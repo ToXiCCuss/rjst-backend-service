@@ -263,7 +263,7 @@
                 <configuration>
                     <image>
                         <env>
-                            <BP_SPRING_AOT_ENABLED>true</BP_SPRING_AOT_ENABLED>
+                            <BP_SPRING_AOT_ENABLED>false</BP_SPRING_AOT_ENABLED>
                             <BP_JVM_CDS_ENABLED>false</BP_JVM_CDS_ENABLED>
                         </env>
                     </image>
