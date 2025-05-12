@@ -1,2 +1,2 @@
 @Library('cicd-config') _
-springBuildpackstc()
+springBuildpacks()
