@@ -1,12 +1,13 @@
 package de.rjst.bes.logic;
 
-import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
-import com.github.javafaker.Internet;
 import de.rjst.bes.database.Player;
 import de.rjst.bes.database.PlayerRepository;
 import de.rjst.bes.database.ProcessState;
 import lombok.RequiredArgsConstructor;
+import org.instancio.Instancio;
+import org.instancio.Model;
+import org.instancio.Select;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,14 +35,16 @@ public class TestDataGeneratorConsumer implements Consumer<Long> {
 
     @NonNull
     private Player generatePlayer() {
-        final Player result = new Player();
-        result.setProcessState(ProcessState.WAITING);
-        final Address address = faker.address();
-        result.setName(address.firstName() + " " + address.lastName());
-        final Internet internet = faker.internet();
-        result.setPassword(internet.password());
-        result.setCreated(LocalDateTime.now());
-        result.setUpdated(LocalDateTime.now());
-        return result;
+        Model<Player> playerModel = Instancio.of(Player.class)
+                .set(Select.field(Player::getId), null)
+                .set(Select.field(Player::getProcessState), ProcessState.WAITING)
+                .set(Select.field(Player::getCreated), LocalDateTime.now())
+                .set(Select.field(Player::getUpdated), LocalDateTime.now())
+                .supply(Select.field(Player::getName), () ->
+                        faker.funnyName().name())
+                .supply(Select.field(Player::getPassword), () ->
+                        faker.internet().password(8, 12, true, true))
+                .toModel();
+        return Instancio.create(playerModel);
     }
 }
