@@ -9,8 +9,6 @@ data:
     spring:
       datasource:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
-        hikari:
-          minimum-idle: 1
       jpa:
         hibernate:
           ddl-auto: none
