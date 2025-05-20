@@ -3,6 +3,7 @@ package de.rjst.bes.controller;
 import de.rjst.bes.adapter.IpQueryResponse;
 import de.rjst.bes.adapter.IpQueryService;
 import de.rjst.bes.database.Player;
+import de.rjst.bes.logic.IpSearchFunction;
 import de.rjst.bes.logic.PlayerService;
 import de.rjst.bes.logic.TestDataGeneratorConsumer;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -22,7 +23,7 @@ public class PrivateController {
 
     private final PlayerService playerService;
     private final TestDataGeneratorConsumer testDataGeneratorConsumer;
-    private final IpQueryService ipQueryService;
+    private final IpSearchFunction ipSearchFunction;
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("players")
@@ -33,7 +34,7 @@ public class PrivateController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("ipsearch")
     public ResponseEntity<IpQueryResponse> getIpInfos(@RequestParam final String ip) {
-        return new ResponseEntity<>(ipQueryService.getIpQueryResponse(ip), HttpStatus.OK);
+        return new ResponseEntity<>(ipSearchFunction.apply(ip), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('USER')")
