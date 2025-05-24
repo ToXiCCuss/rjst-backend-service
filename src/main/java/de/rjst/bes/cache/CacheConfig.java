@@ -20,7 +20,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager(final List<Cache> caches) {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        final var cacheManager = new SimpleCacheManager();
         cacheManager.setCaches(caches);
         return cacheManager;
     }
