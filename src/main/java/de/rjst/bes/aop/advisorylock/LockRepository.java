@@ -17,8 +17,8 @@ public class LockRepository {
 
     public boolean tryAdvisoryLock(final int appId, final int lockId) {
         final Query query = entityManager.createNativeQuery(LOCK_QUERY);
-        query.setParameter(LOCK_ID, lockId);
         query.setParameter(APP_ID, appId);
+        query.setParameter(LOCK_ID, lockId);
         return (Boolean) query.getSingleResult();
     }
 
