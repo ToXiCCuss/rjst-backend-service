@@ -1,14 +1,15 @@
 package de.rjst.bes.jobs;
 
+import de.rjst.bes.aop.logging.AsyncProcessingLog;
 import de.rjst.bes.database.Player;
 import de.rjst.bes.database.PlayerRepository;
 import de.rjst.bes.database.ProcessState;
-import de.rjst.bes.aop.logging.AsyncProcessingLog;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.function.Consumer;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,7 +22,23 @@ public class PlayerConsumer implements Consumer<Player> {
     @Override
     public void accept(final Player player) {
         player.setProcessState(ProcessState.FINISHED);
+        player.setThread(Thread.currentThread()
+                               .getName());
+        player.setPod(getHostname());
         log.info("Processed player {}", player.getId());
         playerRepository.saveAndFlush(player);
     }
+
+    private static String getHostname() {
+        String result = null;
+
+        try {
+            final var localHost = InetAddress.getLocalHost();
+            result =  localHost.getHostName();
+        } catch (UnknownHostException ignored) {
+        }
+
+        return result;
+    }
+
 }
