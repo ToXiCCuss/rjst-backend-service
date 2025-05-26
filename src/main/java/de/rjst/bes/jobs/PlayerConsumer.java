@@ -24,21 +24,10 @@ public class PlayerConsumer implements Consumer<Player> {
         player.setProcessState(ProcessState.FINISHED);
         player.setThread(Thread.currentThread()
                                .getName());
-        player.setPod(getHostname());
         log.info("Processed player {}", player.getId());
         playerRepository.saveAndFlush(player);
     }
 
-    private static String getHostname() {
-        String result = null;
 
-        try {
-            final var localHost = InetAddress.getLocalHost();
-            result =  localHost.getHostName();
-        } catch (UnknownHostException ignored) {
-        }
-
-        return result;
-    }
 
 }
