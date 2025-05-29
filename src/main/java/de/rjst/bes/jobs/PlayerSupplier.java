@@ -42,7 +42,7 @@ public class PlayerSupplier {
         try {
             final var localHost = InetAddress.getLocalHost();
             result =  localHost.getHostName();
-        } catch (UnknownHostException ignored) {
+        } catch (final UnknownHostException ignored) {
         }
 
         return result;
