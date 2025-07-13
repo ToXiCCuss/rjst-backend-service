@@ -1,17 +1,16 @@
 package de.rjst.bes.container;
 
+import static de.rjst.bes.container.ContainerImages.MOCK_SERVER;
+import static de.rjst.bes.container.ContainerImages.POSTGRESQL;
+
 import lombok.Getter;
 import org.mockserver.client.MockServerClient;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistrar;
-import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
-
-import static de.rjst.bes.container.ContainerImages.MOCK_SERVER;
-import static de.rjst.bes.container.ContainerImages.POSTGRESQL;
 
 @TestConfiguration
 public class JUnitContainersConfiguration {
@@ -34,8 +33,8 @@ public class JUnitContainersConfiguration {
         final var mockServerContainer = new MockServerContainer(MOCK_SERVER);
         mockServerContainer.start();
         mockServerClient = new MockServerClient(
-                mockServerContainer.getHost(),
-                mockServerContainer.getServerPort()
+            mockServerContainer.getHost(),
+            mockServerContainer.getServerPort()
         );
         return mockServerContainer;
     }
@@ -43,8 +42,8 @@ public class JUnitContainersConfiguration {
     @Bean
     public DynamicPropertyRegistrar dynamicPropertyRegistrar(final MockServerContainer mockServerContainer) {
         return registry -> {
-            registry.add("spring.cloud.openfeign.client.config.finance.url",mockServerContainer::getEndpoint);
-            registry.add("spring.cloud.openfeign.client.config.ipQuery.url",mockServerContainer::getEndpoint);
+            registry.add("spring.cloud.openfeign.client.config.finance.url", mockServerContainer::getEndpoint);
+            registry.add("spring.cloud.openfeign.client.config.ipQuery.url", mockServerContainer::getEndpoint);
         };
     }
 

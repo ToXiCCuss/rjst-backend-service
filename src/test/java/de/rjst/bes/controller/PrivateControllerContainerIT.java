@@ -1,5 +1,9 @@
 package de.rjst.bes.controller;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.documentationConfiguration;
+
 import de.rjst.bes.adapter.IpQueryResponse;
 import de.rjst.bes.container.ContainerTest;
 import de.rjst.bes.container.IpServiceMock;
@@ -10,25 +14,14 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.jetbrains.annotations.NotNull;
+import java.math.BigInteger;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.restassured.RestDocumentationFilter;
-
-import java.math.BigInteger;
-import java.time.LocalDateTime;
-
-import static de.rjst.bes.container.RestDocsUtil.getDocument;
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.modifyUris;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
-import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.document;
-import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.documentationConfiguration;
 
 @ContainerTest
 class PrivateControllerContainerIT {
@@ -68,18 +61,18 @@ class PrivateControllerContainerIT {
         player = playerRepository.saveAndFlush(player);
 
         final Player result = given()
-                .spec(requestSpecification)
-                .filter(getDocument())
-                .get(PLAYERS + "/" + player.getId())
-                .then()
-                .spec(responseSpecification)
-                .statusCode(HttpStatus.OK.value())
-                .extract().body().as(Player.class);
+            .spec(requestSpecification)
+            .get(PLAYERS + "/" + player.getId())
+            .then()
+            .spec(responseSpecification)
+            .statusCode(HttpStatus.OK.value())
+            .extract()
+            .body()
+            .as(Player.class);
 
         assertThat(result.getBalance()).isEqualTo(BigInteger.TEN);
         assertThat(result.getId()).isEqualTo(player.getId());
     }
-
 
 
     @Test
@@ -88,15 +81,16 @@ class PrivateControllerContainerIT {
         IpServiceMock.getIpQueryResponse(ip);
 
         final IpQueryResponse result = given()
-                .spec(requestSpecification)
-                .filter(getDocument())
-                .when()
-                .param("ip", ip)
-                .get(IP_SEARCH)
-                .then()
-                .spec(responseSpecification)
-                .statusCode(HttpStatus.OK.value())
-                .extract().body().as(IpQueryResponse.class);
+            .spec(requestSpecification)
+            .when()
+            .param("ip", ip)
+            .get(IP_SEARCH)
+            .then()
+            .spec(responseSpecification)
+            .statusCode(HttpStatus.OK.value())
+            .extract()
+            .body()
+            .as(IpQueryResponse.class);
 
         final var isp = result.getIsp();
         assertThat(result.getIp()).isEqualTo(ip);

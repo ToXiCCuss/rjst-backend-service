@@ -42,7 +42,8 @@ public class PlayerSupplier {
         try {
             final var localHost = InetAddress.getLocalHost();
             result =  localHost.getHostName();
-        } catch (final UnknownHostException ignored) {
+        } catch (final UnknownHostException ex) {
+            log.error("Failed to get hostname", ex);
         }
 
         return result;
