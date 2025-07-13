@@ -1,8 +1,5 @@
 package de.rjst.bes.container;
 
-import static de.rjst.bes.container.ContainerImages.MOCK_SERVER;
-import static de.rjst.bes.container.ContainerImages.POSTGRESQL;
-
 import lombok.Getter;
 import org.mockserver.client.MockServerClient;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -11,9 +8,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistrar;
 import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration
 public class JUnitContainersConfiguration {
+
+    private static final DockerImageName MOCK_SERVER = DockerImageName
+        .parse("harbor.vpn.rjst.de/docker.io/mockserver/mockserver")
+        .withTag("mockserver-" + MockServerClient.class.getPackage()
+                                                       .getImplementationVersion())
+        .asCompatibleSubstituteFor("mockserver/mockserver");
+
+    private static final DockerImageName POSTGRESQL = DockerImageName.parse("harbor.vpn.rjst.de/docker.io/postgres:17.5")
+                                                                     .asCompatibleSubstituteFor("postgres");
 
     @Getter
     private static MockServerClient mockServerClient;
