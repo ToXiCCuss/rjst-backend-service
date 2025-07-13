@@ -2,7 +2,6 @@ package de.rjst.bes.controller;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.restdocs.restassured.RestAssuredRestDocumentation.documentationConfiguration;
 
 import de.rjst.bes.adapter.IpQueryResponse;
 import de.rjst.bes.container.ContainerTest;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.restdocs.RestDocumentationContextProvider;
 
 @ContainerTest
 class PrivateControllerContainerIT {
@@ -39,10 +37,9 @@ class PrivateControllerContainerIT {
     private ResponseSpecification responseSpecification;
 
     @BeforeEach
-    void setUp(final RestDocumentationContextProvider restDocumentation) {
+    void setUp() {
         final var requestSpecBuilder = new RequestSpecBuilder();
         requestSpecBuilder.setPort(port);
-        requestSpecBuilder.addFilter(documentationConfiguration(restDocumentation));
         requestSpecBuilder.log(LogDetail.ALL);
         requestSpecification = requestSpecBuilder.build();
 
