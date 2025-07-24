@@ -219,18 +219,11 @@
                             <additionalProperties>
                                 <java.version>${java.version}</java.version>
                                 <description>${project.description}</description>
+                                <spring.boot.version>${project.parent.version}</spring.boot.version>
                             </additionalProperties>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <image>
-                        <env>
-                            <BP_SPRING_AOT_ENABLED>false</BP_SPRING_AOT_ENABLED>
-                            <BP_JVM_CDS_ENABLED>false</BP_JVM_CDS_ENABLED>
-                        </env>
-                    </image>
-                </configuration>
             </plugin>
 
             <plugin>
