@@ -214,7 +214,7 @@
                             <additionalProperties>
                                 <java.version>${java.version}</java.version>
                                 <description>${project.description}</description>
-                                <spring.boot.version>${project.parent.version}</spring.boot.version>
+                                <spring-boot.version>${project.parent.version}</spring-boot.version>
                             </additionalProperties>
                         </configuration>
                     </execution>
