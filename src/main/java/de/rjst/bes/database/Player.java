@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import lombok.ToString;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
