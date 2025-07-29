@@ -3,8 +3,12 @@ package de.rjst.bes.cache;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -14,10 +18,10 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 @Configuration
 @EnableCaching
 @RequiredArgsConstructor
-public class CacheConfig {
+@Slf4j
+public class CacheConfig implements CachingConfigurer {
 
     private final CacheProperties cacheProperties;
-
 
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
@@ -34,4 +38,8 @@ public class CacheConfig {
                                       .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
     }
 
+    @Override
+    public CacheErrorHandler errorHandler() {
+        return new RedisCacheErrorHandler();
+    }
 }

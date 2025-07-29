@@ -8,8 +8,8 @@ spring:
     redis:
       repositories:
         enabled: false
-      timeout: 5s
-      connect-timeout: 5s
+      timeout: 1s
+      connect-timeout: 1s
     oauth2:
       resourceserver:
         jwt:
