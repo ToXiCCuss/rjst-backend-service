@@ -1,38 +1,37 @@
 package de.rjst.bes.cache;
 
-
-import com.github.benmanes.caffeine.cache.Caffeine;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 
-@EnableCaching
 @Configuration
+@EnableCaching
+@RequiredArgsConstructor
 public class CacheConfig {
 
-    public static final String IP_CACHE = "ip";
+    private final CacheProperties cacheProperties;
+
 
     @Bean
-    public CacheManager cacheManager(final List<Cache> caches) {
-        final var cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(caches);
-        return cacheManager;
-    }
+    public RedisCacheConfiguration cacheConfiguration() {
+        final var redisProperties = cacheProperties.getRedis();
 
-    @Bean
-    public Cache ipCache() {
-        return new CaffeineCache(IP_CACHE,
-            Caffeine.newBuilder()
-                    .expireAfterWrite(30, TimeUnit.MINUTES)
-                    .maximumSize(100L)
-                    .recordStats()
-                    .build());
+        final var serializer = new GenericJackson2JsonRedisSerializer();
+        serializer.configure(objectMapper -> {
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            objectMapper.registerModule(new JavaTimeModule());
+        });
+        return RedisCacheConfiguration.defaultCacheConfig()
+                                      .entryTtl(redisProperties.getTimeToLive())
+                                      .disableCachingNullValues()
+                                      .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
     }
 
 }

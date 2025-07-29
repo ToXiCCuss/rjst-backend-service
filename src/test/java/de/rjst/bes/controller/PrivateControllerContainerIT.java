@@ -33,6 +33,9 @@ class PrivateControllerContainerIT {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private IpServiceMock ipServiceMock;
+
     private RequestSpecification requestSpecification;
     private ResponseSpecification responseSpecification;
 
@@ -75,7 +78,7 @@ class PrivateControllerContainerIT {
     @Test
     void getIP() {
         final var ip = "1.1.1.1";
-        IpServiceMock.getIpQueryResponse(ip);
+        ipServiceMock.getIpQueryResponse(ip);
 
         final IpQueryResponse result = given()
             .spec(requestSpecification)

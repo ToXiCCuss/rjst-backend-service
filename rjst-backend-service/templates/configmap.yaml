@@ -7,6 +7,15 @@ metadata:
 data:
   application.yaml: |
     spring:
+      cache:
+        redis:
+          time-to-live: 30m
+      data:
+        redis:
+          repositories:
+            enabled: false
+          host: vpn.rjst.de
+          password: 12345678
       datasource:
         url: jdbc:postgresql://vpn.rjst.de:5432/backend
         hikari:

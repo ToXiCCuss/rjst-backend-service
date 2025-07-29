@@ -46,7 +46,8 @@ public class PrivateController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("players/{id}")
     public ResponseEntity<Player> getPlayer(@PathVariable final Long id) {
-        return new ResponseEntity<>(playerService.getPlayerById(id), HttpStatus.OK);
+        Player playerById = playerService.getPlayerById(id);
+        return new ResponseEntity<>(playerById, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('USER')")

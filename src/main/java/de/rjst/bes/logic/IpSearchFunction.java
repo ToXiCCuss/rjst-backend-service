@@ -2,7 +2,7 @@ package de.rjst.bes.logic;
 
 import de.rjst.bes.adapter.IpQueryResponse;
 import de.rjst.bes.adapter.IpQueryService;
-import de.rjst.bes.cache.CacheConfig;
+import de.rjst.bes.cache.CacheNames;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,7 +14,7 @@ public class IpSearchFunction implements Function<String, IpQueryResponse> {
 
     private final IpQueryService ipQueryService;
 
-    @Cacheable(value = CacheConfig.IP_CACHE, key = "#ip")
+    @Cacheable(value = CacheNames.IP, key = "#ip")
     @Override
     public IpQueryResponse apply(final String ip) {
         return ipQueryService.getIpQueryResponse(ip);

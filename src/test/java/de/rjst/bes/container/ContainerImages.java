@@ -1,9 +1,10 @@
 package de.rjst.bes.container;
 
+import lombok.experimental.UtilityClass;
 import org.mockserver.client.MockServerClient;
 import org.testcontainers.utility.DockerImageName;
 
-
+@UtilityClass
 public class ContainerImages {
 
     public static final DockerImageName MOCK_SERVER = DockerImageName
@@ -14,5 +15,7 @@ public class ContainerImages {
 
     public static final DockerImageName POSTGRESQL = DockerImageName.parse("harbor.vpn.rjst.de/docker.io/postgres:17.5")
                                                                     .asCompatibleSubstituteFor("postgres");
+
+    public static final DockerImageName REDIS = DockerImageName.parse("harbor.vpn.rjst.de/docker.io/redis:7.4.3");
 
 }
