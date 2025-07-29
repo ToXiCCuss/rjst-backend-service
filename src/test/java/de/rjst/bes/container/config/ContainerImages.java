@@ -1,4 +1,4 @@
-package de.rjst.bes.container;
+package de.rjst.bes.container.config;
 
 import lombok.experimental.UtilityClass;
 import org.mockserver.client.MockServerClient;

@@ -1,8 +1,8 @@
-package de.rjst.bes.container;
+package de.rjst.bes.container.config;
 
-import static de.rjst.bes.container.ContainerImages.MOCK_SERVER;
-import static de.rjst.bes.container.ContainerImages.POSTGRESQL;
-import static de.rjst.bes.container.ContainerImages.REDIS;
+import static de.rjst.bes.container.config.ContainerImages.MOCK_SERVER;
+import static de.rjst.bes.container.config.ContainerImages.POSTGRESQL;
+import static de.rjst.bes.container.config.ContainerImages.REDIS;
 
 import com.redis.testcontainers.RedisContainer;
 import org.mockserver.client.MockServerClient;

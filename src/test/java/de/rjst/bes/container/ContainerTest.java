@@ -1,5 +1,6 @@
 package de.rjst.bes.container;
 
+import de.rjst.bes.container.config.JUnitContainersConfiguration;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

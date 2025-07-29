@@ -1,6 +1,13 @@
 spring:
   application:
     name: rjst-backend-service
+  cache:
+    redis:
+      time-to-live: 30m
+  data:
+    redis:
+      repositories:
+        enabled: false
   security:
     oauth2:
       resourceserver:

@@ -1,5 +1,6 @@
 package de.rjst.bes;
 
+import de.rjst.bes.container.config.LocalContainersConfiguration;
 import org.springframework.boot.SpringApplication;
 
 public class RjstBackendServiceTestApplication {
