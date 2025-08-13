@@ -8,15 +8,13 @@ spring:
     redis:
       repositories:
         enabled: false
-      host: vpn.rjst.de
+      host: k8s.server.lan
       password: 12345678
   datasource:
-    url: jdbc:postgresql://vpn.rjst.de:5432/backend
+    url: jdbc:postgresql://localhost:5432/backend
     username: postgres
-    password: 6DBXDMf8zVcxnJrSJMDLPoua4mGahfkEx6FeRfI4
+    password: 0eca-8d86-490d-90c
     driver-class-name: org.postgresql.Driver
-    hikari:
-      minimum-idle: 0
   security:
     oauth2:
       resourceserver:
@@ -48,8 +46,6 @@ spring:
         config:
           ipQuery:
             url: https://api.ipquery.io
-          finance:
-            url: https://finance-batch.vpn.rjst.de
   threads:
     virtual:
       enabled: false
@@ -75,6 +71,6 @@ management:
       show-details: always
 
 security:
-  enabled: true
+  enabled: false
   authorization-url: "https://authentik.rjst.de/application/o/authorize/"
   token-url: "https://authentik.rjst.de/application/o/token/"

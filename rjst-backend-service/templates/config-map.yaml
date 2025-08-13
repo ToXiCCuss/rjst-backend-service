@@ -14,10 +14,9 @@ data:
         redis:
           repositories:
             enabled: false
-          host: vpn.rjst.de
-          password: 12345678
+          host: k8s.server.lan
       datasource:
-        url: jdbc:postgresql://vpn.rjst.de:5432/backend
+        url: jdbc:postgresql://postgresql.server.lan:5432/backend
         hikari:
           minimum-idle: 1
       jpa:
@@ -35,8 +34,6 @@ data:
             config:
               ipQuery:
                 url: https://api.ipquery.io
-              finance:
-                url: https://finance-batch.vpn.rjst.de
       security:
         oauth2:
           resourceserver:
@@ -65,6 +62,6 @@ data:
             - email
             - roles
     security:
-      enabled: true
+      enabled: false
       authorization-url: "https://authentik.rjst.de/application/o/authorize/"
       token-url: "https://authentik.rjst.de/application/o/token/"
