@@ -62,6 +62,6 @@ data:
             - email
             - roles
     security:
-      enabled: false
+      enabled: true
       authorization-url: "https://authentik.rjst.de/application/o/authorize/"
       token-url: "https://authentik.rjst.de/application/o/token/"
