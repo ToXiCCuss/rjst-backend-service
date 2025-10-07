@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdvisoryLockAspect {
 
-    private final LockRepository lockRepository;
+    private final AdvisoryLockRepository lockRepository;
 
     @Around("execution(public * * (..)) && @annotation(advisoryLock)")
     public Object around(final ProceedingJoinPoint joinPoint, final AdvisoryLock advisoryLock) throws Throwable {
@@ -21,7 +21,7 @@ public class AdvisoryLockAspect {
 
         final int appId = advisoryLock.appId();
         final int lockId = advisoryLock.lockId();
-        if (lockRepository.tryAdvisoryLock(appId, lockId)) {
+        if (lockRepository.tryLock(appId, lockId)) {
             result = joinPoint.proceed();
         } else {
             log.debug("Failed to acquire lock with appId {}, lockId {}", appId, lockId);
