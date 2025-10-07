@@ -16,7 +16,7 @@ public class ClusterJobLogicRepository {
     private final AdvisoryLockRepository advisoryLockRepository;
     private final ClusterJobRepository clusterJobRepository;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 60)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public boolean tryLock(ClusterJob clusterJob) {
         boolean result = false;
 
@@ -36,6 +36,7 @@ public class ClusterJobLogicRepository {
         return result;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void unlock(ClusterJob clusterJob) {
         var name = clusterJob.name();
 
