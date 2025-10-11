@@ -1,11 +1,9 @@
 package de.rjst.bes.jobs;
 
-import de.rjst.bes.aop.logging.AsyncProcessingLog;
+import de.rjst.bes.logging.AsyncProcessingLog;
 import de.rjst.bes.database.Player;
 import de.rjst.bes.database.PlayerRepository;
 import de.rjst.bes.database.ProcessState;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

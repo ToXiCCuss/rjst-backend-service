@@ -1,4 +1,4 @@
-package de.rjst.bes.aop.logging;
+package de.rjst.bes.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -1,4 +1,4 @@
-package de.rjst.bes.aop.logging;
+package de.rjst.bes.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
